@@ -1,0 +1,62 @@
+﻿@model ClientManagement.DomainModel.OrderProductInfoFilterModel
+
+<link href="~/Content/StyleSheet.css" rel="stylesheet" />
+<link href="~/assets/css/main.css" rel="stylesheet"/>
+
+<div class="panel panel-default">
+                                
+    <div class="Headingtest">
+        <em>Order : @Model.Name | Total Order Amount : @Model.Amount.ToString("c", ClientManagement.DomainModel.Configuration.CultureInfoSettings.GetZACulture().NumberFormat)  | <strong>Order Date : @Model.OrderDate.ToString("dd MMMM yyyy") </strong></em>
+    </div>
+
+    <div class="panel-body" style="border: solid; border-color: #3d9400">
+        <div id="divOrderDetails">
+            <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Cost</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderProductInfoFilterList)
+                    {
+                        var Amount = @item.Cost.ToString("c", ClientManagement.DomainModel.Configuration.CultureInfoSettings.GetZACulture().NumberFormat);                                  
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Quantity</td>
+                            <td>@Amount</td>
+
+                            <td>                                               
+                               @if (item.Quantity >= 0 && Model.StatusId != 3)
+                                {
+                                    <p>InComplete</p>
+                                }
+                                else
+                                {
+                                        if (item.IsFinalized > 0)
+                                        {
+                                            <p>Complete</p>
+                                        }
+                                        else
+                                        {
+                                            <p>Finalize</p>
+                                        }
+                                    
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

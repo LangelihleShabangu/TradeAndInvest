@@ -1,0 +1,196 @@
+﻿@model ClientManagement.DomainModel.TransporterModel
+
+@{
+    var txtidnumber = "PersonalDetails_IdNumber_";
+    var txtidnumberWarning = "PersonalDetailsWarning_IdNumber_";
+    var txtBirthDate = "PersonalDetails_BirthDate_";
+    var ddlGender = "PersonalDetails_GenderId_";
+}
+
+
+<div class="panel panel-default">
+
+    @Html.HiddenFor(model => model.TransporterId)
+    @Html.HiddenFor(model => model.ContactInformationId)
+
+    @Html.HiddenFor(model => model.ContactInformationDetails.ContactInformationId)
+    @Html.HiddenFor(model => model.AddressDetails.AddressId)
+
+   
+    <div class="tab-content">
+
+        <div class="panel-body">
+            <div class="row">
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Gender  :
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.DropDownList("GenderId", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetGenderDataInfo(Model.GenderList), "Value", "Text", Model.GenderId), new { @class = "form-control search-select", @id = "PersonalDetails_GenderId_" })
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Surname :  <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.ContactInformationDetails.Surname, new { @class = "form-control", @placeholder = "Surname ", required = "required" })
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Id Number :  <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.ContactInformationDetails.IdNumber, new { @id = "PersonalDetails_IdNumber_", @class = "form-control", @onblur = "OnIDNumberChange();", @onkeydown = "OnIDNumberChange();", @placeholder = "Id Number", required = "required" })
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">
+                            FirstName :  <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.ContactInformationDetails.FirstName, new { @class = "form-control", @placeholder = "FirstName ", required = "required" })
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Passport Number :  <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.ContactInformationDetails.PassportNumber, new { @class = "form-control", @placeholder = "Passport Number ", required = "required" })
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Known As :  <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.ContactInformationDetails.KnownAs, new { @class = "form-control", @placeholder = "Known As ", required = "required" })
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">
+                            BirthDate :  <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.ContactInformationDetails.BirthDate, new { @class = "form-control date-picker", @placeholder = "BirthDate ", @id = "PersonalDetails_BirthDate_" })
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Cell Number :  <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.ContactInformationDetails.CellNumber, new { @class = "form-control", @placeholder = "Cell Number ", required = "required" })
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Email Addreess :  <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.ContactInformationDetails.EmailAddress, new { @class = "form-control", @placeholder = " Email Address ", required = "required" })
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Phone Number :  <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.ContactInformationDetails.PhoneNumber, new { @class = "form-control", @placeholder = "Phone Number ", required = "required" })
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="panel-heading">
+                        Address Details                                    
+                    </div>
+                    <div class="tab-content">
+                        <div class="panel-body">
+                            @Html.EditorFor(model => model.AddressDetails, "AddressPartial")
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="panel-heading">
+                        Banking Details                               
+                    </div>
+                    <div class="tab-content">
+                        <div class="panel-body">
+                            @Html.EditorFor(model => model.BankingDetailsInfo, "BankingDetailsPartial")
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    function OnIDNumberChange() {
+        var idNumber = $("#@txtidnumber").val();
+
+        if (idNumber.length == 13) {
+            var tempDate = new Date(idNumber.substring(0, 2), idNumber.substring(2, 4) - 1, idNumber.substring(4, 6));
+            var curr_date = tempDate.getDate();
+            var curr_month = tempDate.getMonth() + 1;
+            var curr_year = tempDate.getFullYear();
+            newtemp = (curr_year + "-" + curr_month + "-" + curr_date);
+            $("#@txtBirthDate").val("");
+            $("#@txtBirthDate").val(newtemp);
+
+            var genderCode = idNumber.substring(6, 10);
+            var gender = parseInt(genderCode) < 5000 ? $("#@ddlGender").val(2) : $("#@ddlGender").val(3);
+        }
+
+        if (idNumber.length != 13)
+            $("#@txtidnumberWarning").text('WARNING! ID is ' + idNumber.length + ' digits long!');
+        else
+            $("#@txtidnumberWarning").text('');
+    }
+</script>
+
+
+
+
+
+

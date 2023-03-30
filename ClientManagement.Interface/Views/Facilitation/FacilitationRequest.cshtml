@@ -1,0 +1,75 @@
+﻿@model ClientManagement.DomainModel.FacilitationRequestModel
+
+<script>
+    jQuery(document).ready(function () {
+        Main.init();
+        FormElements.init();
+    });
+</script>
+
+@using (Html.BeginForm("CreateFacilitationRequest", "Facilitation", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.FacilitationId)
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Facilitation Request</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="la la-remove"></span>
+            </button>
+        </div>
+        <div class="modal-body">
+
+            <div class="form-group">
+                <label>What do you need assistance on?<span style="color:red">*</span></label>
+                @Html.DropDownList("NeededAssistance", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetNeededAssistance(), "Value", "Text", Model.NeededAssistance), new { @class = "form-control kt_selectpicker", data_show_subtext = "true", data_live_search = "true" })
+            </div>
+
+            <div class="form-group">
+                <label>Comments / Notes<span style="color:red">*</span></label>
+                @Html.TextAreaFor(x => x.Comments, 10, 10, new { @id = "Comments", @class = "form-control", @placeholder = "Comments", @required = "required" })
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-brand kt-btn kt-btn--pill">Submit</button>
+        </div>
+    </div>
+}
+
+<div class="kt-portlet__separator"></div>
+
+<table id="example" class="table table-striped- table-bordered table-hover table-checkable">
+    <thead>
+        <tr>
+            <th>Comments</th>            
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in @Model.FacilitationRequestList)
+        {
+        <tr>
+            <td style="vertical-align: middle">@item.Comments</td>           
+
+            <td style="vertical-align: middle">
+                <div class="dropdown">
+                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Action
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-md dropdown-menu-fit">
+                        <ul class="kt-nav kt-margin-t-30 kt-margin-b-20">                            
+                            <li class="kt-nav__item">
+                                <a href="@Url.Action("DeleteFacilitationRequest", "Facilitation", new { FacilitationRequestId = item.FacilitationRequestId })" class="kt-nav__link">
+                                    <span class="kt-nav__link-text">Remove</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

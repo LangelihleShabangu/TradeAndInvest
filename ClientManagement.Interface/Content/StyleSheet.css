@@ -1,0 +1,41 @@
+﻿
+.Headingtest {
+    height: 25px;
+    width: 100%;
+    /*font-size:16px;*/
+    font-size: 1.2em;
+    font-family: Calibri;
+    padding: 5px,5px,5px,5px;
+    /*font-weight: bold;*/
+    /*font-style: italic;*/
+    text-align: center;
+    color: White;
+    /*background-image: url('Headingsss.gif');*/
+    background-image: url('Untitled12.png');    
+    background-repeat: repeat-x;
+    background-position: center;
+    border:none;
+    text-align: left;
+}
+
+
+.Headingtest1 {
+    height: 25px;
+    width: 100%;
+    /*font-size:16px;*/
+    font-size: 1.2em;
+    font-family: Calibri;
+    padding: 5px,5px,5px,5px;
+    /*font-weight: bold;*/
+    /*font-style: italic;*/
+    text-align: center;
+    color: White;
+    background-color: White;
+    /*background-image: url('Headingss.gif');*/
+    background-repeat: repeat-x;
+    background-position: center;
+    border:none;
+    text-align: right;
+}
+
+

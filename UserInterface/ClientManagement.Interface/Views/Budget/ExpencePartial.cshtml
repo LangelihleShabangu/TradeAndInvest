@@ -1,0 +1,73 @@
+﻿@model ClientManagement.DomainModel.BudgetModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    MenuSelected('AdminInformation');
+</script>
+
+<link href="~/Content/StyleSheet.css" rel="stylesheet" />
+
+
+<div class="panel-heading">
+    <i></i>Budget Details
+    <div class="panel-tools">
+        <a class="btn btn-xs btn-green" href="@Url.Action("CreateBudgetInfo", "Budget", new { BudgetId = Model.BudgetId })"><i class="fa fa-plus"></i></a>
+    </div>
+</div>
+<div class="tab-content">
+
+    <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+        <thead>
+            <tr>
+                <th>Budget Category</th>
+                <th>Category Type</th>
+                <th>Amount </th>
+                <th>Expence Date </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+       
+        <tbody>
+            @foreach (var item in Model.BudgetList)
+            {
+                var Actual = @item.Actual.ToString("c", ClientManagement.DomainModel.Configuration.CultureInfoSettings.GetZACulture().NumberFormat);                
+                <tr>
+                    <td>@item.BudgetCategory</td>
+                    <td>@item.BudgetType</td>
+                    <td>@Actual</td>
+                    <td>@item.CreatedDate</td>                    
+                    <td>
+                        @using (Html.BeginForm("CreateEditBudgetInfo", "Budget", new { BudgetId = item.BudgetId }))
+                        {
+                            <button class="btn btn-xs btn-primary" name="submitbtn" type="submit" data-original-title="Edit" value="Edit">
+                                <i class="fa fa-pencil-square-o"></i>
+                            </button>
+
+                            <a href="#@item.BudgetId" class="btn btn-xs btn-red" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+
+                            <div class="modal fade" id="@item.BudgetId" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div id="users" class="modal-body">
+                                            <p>Are you sure you want to delete this item?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button aria-hidden="true" data-dismiss="modal" class="btn btn-sm btn-default">
+                                                Close
+                                            </button>
+                                            <input type="submit" name="submitbtn" class="btn btn-red tooltips" data-placement="top" data-original-title="Remove" value="Remove" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

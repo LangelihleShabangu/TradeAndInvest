@@ -1,0 +1,465 @@
+﻿@model ClientManagement.DomainModel.AssessmentModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
+
+<script src="@Url.Content("https://code.jquery.com/jquery-3.3.1.js")"></script>
+<script src="@Url.Content("https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js")"></script>
+
+<!-- begin:: Content -->
+<div class="kt-portlet">    
+    <div class="kt-container  kt-grid__item kt-grid__item--fluid">
+        <div class="kt-portlet">
+
+            @if (@Model.SubscriptionsId == 0)
+            {
+                <div class="alert alert-warning" role="alert" style="align-items:center; align-content:center">
+                    <div class="alert-text" style="color:white; align-content:center; align-items:center; font-size:medium">
+                        <strong>Exporter Needs Assessment</strong> - We care about the development and growth of your business. First you must <a class="btn btn-outline-brand kt-btn kt-btn--pill" href="@Url.Action("GetRegistrationDetails", "Registration")">Subscribe</a>
+                        <img src="~/Newassets/media/wizard/undraw_live_collaboration_2r4y.svg" alt="image" class="kt-wizard-v1__nav-image" />
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning" role="alert" style="align-items:center; align-content:center">
+                    <div class="alert-text" style="color:white; align-content:center; align-items:center; font-size:medium">
+                        <strong>Exporter Needs Assessment</strong> - We care about the development and growth of your business. Let us know your additional requirements and/or assistance you need to help your business grow in exports, or any export challenges your business is currently facing.
+                    </div>
+                </div>
+                <div class="kt-portlet__body kt-portlet__body--fit">
+                    <div class="kt-grid kt-grid--desktop-xl kt-grid--ver-desktop-xl kt-wizard-v1 kt-wizard-v1--extend" id="kt_wizard_v4" data-ktwizard-state="step-first">
+                        <div class="kt-grid__item kt-wizard-v1__aside">
+
+                            <!--begin: Form Wizard Nav -->
+                            <div class="kt-wizard-v1__nav">
+
+                                <!--doc: Remove "kt-wizard-v1__nav-items--clickable" class and also set 'clickableSteps: false' in the JS init to disable manually clicking step titles -->
+                                <div class="kt-wizard-v1__nav-items kt-wizard-v1__nav-items--clickable">
+                                    <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" data-ktwizard-state="current" style="background-color: black
+">
+                                        <span>1</span>
+                                    </div>
+                                    <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" style="        background-color: black
+">
+                                        <span>2</span>
+                                    </div>
+                                    <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" style="        background-color: black
+">
+                                        <span>3</span>
+                                    </div>
+                                    <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" style="        background-color: black
+">
+                                        <span>4</span>
+                                    </div>
+                                    <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" style="        background-color: black
+">
+                                        <span>5</span>
+                                    </div>
+                                </div>
+                                <div class="kt-wizard-v1__nav-details">
+                                    <div class="kt-wizard-v1__nav-item-wrapper" data-ktwizard-type="step-info" data-ktwizard-state="current">
+                                        <div class="kt-wizard-v1__nav-item-title">
+                                            Exporter Information and Details
+                                        </div>
+                                        <div class="kt-wizard-v1__nav-item-desc">
+                                            To start off, please enter your Name, your company and export information details.
+                                        </div>
+                                    </div>
+                                    <div class="kt-wizard-v1__nav-item-wrapper" data-ktwizard-type="step-info">
+                                        <div class="kt-wizard-v1__nav-item-title">
+                                            Add your Employees Details and Revenue
+                                        </div>
+                                        <div class="kt-wizard-v1__nav-item-desc">
+                                            Please enter Project Status, Project Expectations, Departments and Future Plans.
+                                        </div>
+                                    </div>
+                                    <div class="kt-wizard-v1__nav-item-wrapper" data-ktwizard-type="step-info">
+                                        <div class="kt-wizard-v1__nav-item-title">
+                                            Technical Support and Services
+                                        </div>
+                                        <div class="kt-wizard-v1__nav-item-desc">
+                                            Please ensure your details are up-to-date and accurate for us to server you better.
+                                        </div>
+                                    </div>
+                                    <div class="kt-wizard-v1__nav-item-wrapper" data-ktwizard-type="step-info">
+                                        <div class="kt-wizard-v1__nav-item-title">
+                                            Current Challanges and Support
+                                        </div>
+                                        <div class="kt-wizard-v1__nav-item-desc">
+                                            Please ensure your details are up-to-date and accurate for us to server you better.
+                                        </div>
+                                    </div>
+                                    <div class="kt-wizard-v1__nav-item-wrapper" data-ktwizard-type="step-info">
+                                        <div class="kt-wizard-v1__nav-item-title">
+                                            Submit
+                                        </div>
+                                        <div class="kt-wizard-v1__nav-item-desc">
+                                            We appreciate you taking the time to complete this survey.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--end: Form Wizard Nav -->
+                        </div>
+                        <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
+
+                            <!--begin: Form Wizard Form-->
+                            <form class="kt-form" id="kt_form">
+
+                                <!--begin: Form Wizard Step 1-->
+                                <div class="kt-wizard-v1__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
+                                    <div class="kt-heading kt-heading--md">Assessment Information</div>
+                                    <div class="kt-separator kt-separator--height-xs"></div>
+                                    <div class="kt-form__section kt-form__section--first">
+                                        <div class="form-group">
+                                            <label>Your name?<span style="color: red">*</span></label>
+                                            @Html.TextBoxFor(x => x.FirstName, new { @id = "FirstName", @class = "form-control", @placeholder = "FirstName", @required = "required", @disabled = "disabled" })
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Your Company name? <span style="color: red">*</span></label>
+                                            @Html.TextBoxFor(x => x.CompanyName, new { @id = "CompanyName", @class = "form-control", @placeholder = "Company Name", @required = "required", @disabled = "disabled" })
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email address?  <span style="color: red">*</span></label>
+                                            @Html.TextBoxFor(x => x.Email_Address, new { @id = "Email_Address", @class = "form-control", @placeholder = "Email Address", @required = "required", @disabled = "disabled" })
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Is your company based within the City of Johannesburg Metro?<span style="color: red">*</span></label>
+                                            @Html.DropDownList("Company_Based", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.YesNoOnly(), "Value", "Text", Model.Company_Based), new { @class = "form-control kt_selectpicker", @id = "Company_Based", data_show_subtext = "true", data_live_search = "true", @disabled = "disabled" })
+                                        </div>
+                                        <div class="form-group">
+                                            <label>If Yes  (Please specify location)  <span style="color: red">*</span></label>
+                                            @Html.TextBoxFor(x => x.Specify_Company_Location, new { @id = "Specify_Company_Location", @class = "form-control", @placeholder = "If Yes  (Please specify location)", @required = "required", @disabled = "disabled" })
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Are you an Exporter? <span style="color: red">*</span></label>
+                                            @Html.DropDownList("Exporter", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.YesNo(), "Value", "Text", Model.Regional_export_markets_future_expand), new { @class = "form-control kt_selectpicker", @id = "Exporter", data_show_subtext = "true", data_live_search = "true", @disabled = "disabled" })
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>If yes, Which Region <span style="color: red">*</span></label>
+                                            @Html.DropDownList("Exporter_Region", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetContinent(), "Value", "Text", Model.Exporter_Region), new { @class = "form-control kt_selectpicker", @id = "Exporter_Region", data_show_subtext = "true", data_live_search = "true", @disabled = "disabled" })
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Which Country? <span style="color: red">*</span></label>
+                                            @Html.DropDownList("Exporter_Country", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetCountry(), "Value", "Text", Model.Exporter_Country), new { @class = "form-control kt_selectpicker", @id = "Exporter_Country", data_show_subtext = "true", data_live_search = "true", @disabled = "disabled" })
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!--end: Form Wizard Step 1-->
+                                <!--begin: Form Wizard Step 2-->
+                                <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+                                    <div class="kt-heading kt-heading--md">Employees Details and Revenue</div>
+                                    <div class="kt-separator kt-separator--height-sm"></div>
+                                    <div class="kt-form__section kt-form__section--first">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>Number of years you have exported? <span style="color: red">*</span></label>
+                                                    @Html.TextBoxFor(x => x.Number_of_years_you_have_exported, new { @id = "Number_of_years_you_have_exported", @class = "form-control", @placeholder = "Number of years you have exported?", @required = "required" })
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>How many employees does your company have?<span style="color: red">*</span></label>
+                                                    @Html.DropDownList("Number_of_Company_employees", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetNumberEmployeesData(), "Value", "Text", Model.Number_of_Company_employees), new { @class = "form-control kt_selectpicker", data_show_subtext = "true", data_live_search = "true" })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>What is your company’s annual turnover?<span style="color: red">*</span></label>
+                                                    @Html.TextBoxFor(x => x.Companys_annual_turnover, new { @id = "Companys_annual_turnover", @class = "form-control", @placeholder = "What is your company’s annual turnover?", @required = "required" })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>Which Industry/Sector is your company in?<span style="color: red">*</span></label>
+                                                    @Html.DropDownList("Industry_Sector", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetIndustryDataInfo(Model.IndustryList), "Value", "Text", Model.Industry_Sector), new { @class = "form-control kt_selectpicker", data_show_subtext = "true", data_live_search = "true" })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>What are your main export products? <span style="color: red">*</span></label>
+                                                    @Html.TextBoxFor(x => x.Export_products, new { @id = "Export_products", @class = "form-control", @placeholder = "What are your main export products?", @required = "required" })
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>What are your main export markets? <span style="color: red">*</span></label>
+                                                    @Html.TextBoxFor(x => x.Export_markets, new { @id = "Export_markets", @class = "form-control", @placeholder = "Export_markets", @required = "required" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!--end: Form Wizard Step 2-->
+                                <!--begin: Form Wizard Step 3-->
+                                <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+
+                                    <div class="kt-form__section kt-form__section--first">
+
+                                        <div class="kt-heading kt-heading--md">Technical Support and Services</div>
+                                        <div class="row">
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>Which regional export markets are you planning to expand to now and in the future? <span style="color: red">*</span></label>
+
+                                                    @Html.DropDownList("Regional_export_markets_future_expand", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetContinent(), "Value", "Text", Model.Regional_export_markets_future_expand), new { @class = "form-control kt_selectpicker", @id = "Regional_export_markets_future_expand", data_show_subtext = "true", data_live_search = "true" })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>Which Country?<span style="color: red">*</span></label>
+                                                    @Html.DropDownList("Country_Expand", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetCountry(), "Value", "Text", Model.Country_Expand), new { @class = "form-control kt_selectpicker", data_show_subtext = "true", data_live_search = "true" })
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>Does your product require any special technical support or after-sale service?<span style="color: red">*</span></label>
+                                                    @Html.TextBoxFor(x => x.Special_technical_support, new { @id = "Special_technical_support", @class = "form-control", @placeholder = "Special_technical_support", @required = "required" })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>Is your company currently receiving any government export assistance?<span style="color: red">*</span></label>
+                                                    @Html.DropDownList("Government_export_assistance", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.YesNo(), "Value", "Text", Model.Government_export_assistance), new { @class = "form-control kt_selectpicker", @id = "Government_export_assistance", data_show_subtext = "true", data_live_search = "true" })
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>If Yes  (Please specify location)  <span style="color: red">*</span></label>
+                                                    @Html.TextBoxFor(x => x.specify_location_Assistance, new { @id = "specify_location_Assistance", @class = "form-control", @placeholder = "If Yes  (Please specify location)", @required = "required" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!--end: Form Wizard Step 3-->
+                                <!--begin: Form Wizard Step 34-->
+                                <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+
+                                    <div class="kt-form__section kt-form__section--first">
+
+                                        <div class="kt-heading kt-heading--md">Technical Support and Services</div>
+                                        <div class="row">
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>What services would be most beneficial for you to expand/start your export business? Please tick the relevant options to you. <span style="color: red">*</span></label>
+
+                                                    <div class="form-group">
+                                                        <div class="kt-checkbox-list">
+                                                            <label class="kt-checkbox">
+                                                                @Html.CheckBoxFor(m => m.chkExporter_Education_Seminar, new { @id = "chkExporter_Education_Seminar" }) Exporter Education Seminar (Sector/Market Specific)
+
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="kt-checkbox">
+                                                                <input type="checkbox" name="account_communication" value="sms">
+                                                                @Html.CheckBoxFor(m => m.chkParticipate_at_international_Trade, new { @id = "chkParticipate_at_international_Trade" }) Participate at international Trade Fairs
+
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="kt-checkbox">
+                                                                @Html.CheckBoxFor(m => m.chkMarket_Research, new { @id = "chkMarket_Research" }) Market Research
+
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="kt-checkbox">
+                                                                @Html.CheckBoxFor(m => m.chkGuidance_on_export, new { @id = "chkGuidance_on_export" }) Guidance on export documentation, certification etc.
+
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="kt-checkbox">
+                                                                @Html.CheckBoxFor(m => m.chkFinancial_Assistance, new { @id = "chkFinancial_Assistance" }) Financial Assistance
+
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="kt-checkbox">
+                                                                @Html.CheckBoxFor(m => m.chkConsultation_with_trade_specialist, new { @id = "chkConsultation_with_trade_specialist" }) One-on-One consultation with a trade specialist
+
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="kt-checkbox">
+                                                                @Html.CheckBoxFor(m => m.chkInternational_Trade_Missions, new { @id = "chkInternational_Trade_Missions" }) International Trade Missions
+
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="kt-checkbox">
+                                                                @Html.CheckBoxFor(m => m.chkTrade_Leads, new { @id = "chkTrade_Leads" }) Trade Leads
+
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="kt-checkbox">
+                                                                @Html.CheckBoxFor(m => m.chkShipping_Logistics_consulting, new { @id = "chkShipping_Logistics_consulting" }) Shipping/Logistics consulting
+
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="kt-checkbox">
+                                                                @Html.CheckBoxFor(m => m.chkOther, new { @id = "chkOther" }) Other
+                                                                <span></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>Additional Comments<span style="color: red">*</span></label>
+                                                    @Html.TextBoxFor(x => x.Additional_Comments, new { @id = "Additional_Comments", @class = "form-control", @placeholder = "Additional Comments", @required = "required" })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>What challenges are you currently facing as an exporter? <span style="color: red">*</span></label>
+                                                    @Html.TextBoxFor(x => x.Challenges_facing_Exporter, new { @id = "Challenges_facing_Exporter", @class = "form-control", @placeholder = "What challenges are you currently facing as an exporter?", @required = "required" })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>Any other issues / areas of concern that have not been covered in this survey?  <span style="color: red">*</span></label>
+                                                    @Html.TextBoxFor(x => x.Other_issues, new { @id = "Other_issues", @class = "form-control", @placeholder = "Other_issues", @required = "required" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!--end: Form Wizard Step 34-->
+                                <!--begin: Form Wizard Step 4-->
+                                <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+                                    <div class="kt-heading kt-heading--md">Confirmation</div>
+                                    <div class="kt-separator kt-separator--height-sm"></div>
+                                    <div class="kt-form__section kt-form__section--first">
+                                        <div class="form-group">
+                                            We appreciate you taking the time to complete our assessment.
+                                            <span></span>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--end: Form Wizard Step 4-->
+                                <!--begin: Form Actions -->
+                                <div class="kt-form__actions">
+                                    <div class="btn btn-outline-brand btn-md btn-tall btn-wide btn-bold btn-upper" data-ktwizard-type="action-prev">
+                                        Previous
+                                    </div>
+                                    <div class="btn btn-brand btn-md btn-tall btn-wide btn-bold btn-upper" data-ktwizard-type="action-submit" onclick="SubmitAssessment()">
+                                        Submit
+                                    </div>
+                                    <div class="btn btn-brand btn-md btn-tall btn-wide btn-bold btn-upper" data-ktwizard-type="action-next">
+                                        Next Step
+                                    </div>
+                                </div>
+
+                                <!--end: Form Actions -->
+                            </form>
+
+                            <!--end: Form Wizard Form-->
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- End:: Content -->
+
+<script>
+
+    function SubmitAssessment() {
+        $.ajax({
+            cache: false,
+            type: "GET",
+            data: {
+
+                SubscriptionsId: @Model.SubscriptionsId,
+                AssessmentId: @Model.AssessmentId,
+                Company_Based: "3cc570ab-36bc-ed11-83ff-0022489fd0dc",                
+
+                Exporter_Region: $("#Exporter_Region").val(),
+                Exporter_Country: $("#Exporter_Country").val(),
+
+                Industry_Sector: $("#Industry_Sector").val(),
+                Export_products: $("#Export_products").val(),
+                Export_markets: $("#Export_markets").val(),
+
+                Companys_annual_turnover: $("#Companys_annual_turnover").val().replace(",", "."),
+                Number_of_Company_employees: $("#Number_of_Company_employees").val(),
+                Number_of_years_you_have_exported: $("#Number_of_years_you_have_exported").val(),
+
+                Special_technical_support: $("#Special_technical_support").val(),
+                Government_export_assistance: $("#Government_export_assistance").val(),
+                specify_location_Assistance: $("#specify_location_Assistance").val(),
+
+                Specify_Company_Location: $("#Specify_Company_Location").val(),
+                Country_Expand: $("#Country_Expand").val(),
+                Regional_export_markets_future_expand: $("#Regional_export_markets_future_expand").val(),
+
+                chkExporter_Education_Seminar: $("#chkExporter_Education_Seminar").val(),
+                chkParticipate_at_international_Trade: $("#chkParticipate_at_international_Trade").val(),
+
+                chkMarket_Research: $("#chkMarket_Research").val(),
+                chkGuidance_on_export: $("#chkGuidance_on_export").val(),
+                chkFinancial_Assistance: $("#chkFinancial_Assistance").val(),
+
+                chkConsultation_with_trade_specialist: $("#chkConsultation_with_trade_specialist").val(),
+                chkInternational_Trade_Missions: $("#chkInternational_Trade_Missions").val(),
+
+                chkTrade_Leads: $("#chkTrade_Leads").val(),
+                chkShipping_Logistics_consulting: $("#chkShipping_Logistics_consulting").val(),
+                chkOther: $("#chkOther").val(),
+
+                Additional_Comments: $("#Additional_Comments").val(),
+                Challenges_facing_Exporter: $("#Challenges_facing_Exporter").val(),
+                Other_issues: $("#Other_issues").val(),
+            },
+            url: '@Url.Action("InsertAssessment", "Registration")',
+            success: function (data) {
+
+                        swal.fire({
+                        title: 'Assessment?',
+                    text: "Thank you, Successfully submitted assessment",
+                    type: 'success',
+                    showCancelButton: false,
+                    confirmButtonText: 'Ok'
+                        }).then(function (result) {
+                            if (result.value) {
+                                window.location.href = '@Url.Action("Index", "Dashboard")';
+                            }
+                        });
+                    }
+                });
+            }
+</script>
+

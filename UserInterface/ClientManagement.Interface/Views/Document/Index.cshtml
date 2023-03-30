@@ -1,0 +1,68 @@
+﻿@model ClientManagement.DomainModel.DocumentModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}  
+
+<script>
+    MenuSelected('Membership');
+</script>
+
+<link href="~/Content/StyleSheet.css" rel="stylesheet" />
+
+<div class="panel panel-default">
+    <div class="Headingtest1">       
+        <a  class ="btn btn-xs btn-green" href ="@Url.Action("CreateDocument", "Document", new { DocumentId = Model.DocumentId })">Add</a>
+    </div>
+    <div class="Headingtest">
+        Document Details              
+    </div>
+    
+    <div class="panel-body" style="border: solid; border-color: lightgrey">
+        <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+            <thead>
+                <tr>
+                    <th>Member Name</th>
+                    <th>Document Name</th>                    
+                    <th>Document Date</th>                       
+                    <th>Action</th>                
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.DocumentModelList)
+                {
+                    <tr>                        
+                        <td>@item.Client</td> 
+                        <td>@item.Name</td>                                                
+                        <td>@item.CreatedDate.ToString("dd MMMM yyyy")</td>
+                        <td>
+                            @using (Html.BeginForm("CreateEditDocument", "Document", new { DocumentId = item.DocumentId }))
+                            { 
+                                <input type="submit" name="submitbtn" class="btn btn-xs btn-teal tooltips" data-placement="top" data-original-title="Edit" value="Edit" />                                                              
+                                
+                                <a href="#@item.DocumentId" class="btn btn-xs btn-green" data-toggle="modal">Delete</a>
+
+                                <div class="modal fade" id="@item.DocumentId" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div id="users" class="modal-body">
+                                                <p>Are you sure you want to delete this item?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button aria-hidden="true" data-dismiss="modal" class="btn btn-sm btn-default">
+                                                    Close
+                                                </button>
+                                                <input type="submit" name="submitbtn" class="btn btn-red tooltips" data-placement="top" data-original-title="Remove" value="Remove" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

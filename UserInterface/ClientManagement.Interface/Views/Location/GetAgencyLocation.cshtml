@@ -1,0 +1,182 @@
+﻿@model  ClientManagement.DomainModel.ProjectLocationSelector
+@{
+    ViewBag.Title = "Create Location Data";
+    ViewBag.Breadcramb = "Association";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    MenuSelected('Administrator');
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFuMPzEyI3Vna-k8XSyccoIuLTzAxfHkE&libraries=places"></script>
+<script>
+    //var currentResults = [];
+    function initialize() {
+        var mapOptions = {
+            zoom: 6
+        };
+        var infowindow = new google.maps.InfoWindow();
+        var geocoder = new google.maps.Geocoder();
+        var map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+
+        // Create the search box and link it to the UI element.
+        var input = (document.getElementById('pac-input'));
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        debugger;
+        var searchBox = new google.maps.places.SearchBox(input);
+
+        // Try HTML5 geolocation
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var pos = new google.maps.LatLng(position.coords.latitude,
+                                                 position.coords.longitude);
+
+                var infowindow = new google.maps.InfoWindow({
+                    map: map,
+                    position: pos,
+                    content: 'Current Location'
+                });
+
+                map.setCenter(pos);
+            }, function () {
+                handleNoGeolocation(true);
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleNoGeolocation(false);
+        }
+
+        var marker = new google.maps.Marker({
+            position: map.getCenter(),
+            map: map,
+            title: 'Click to zoom'
+        });
+
+
+        //use Reverse Geocoding
+        google.maps.event.addListener(map, 'click', function (e) {
+
+            var input = e.latLng.toUrlValue();
+            var latlngStr = input.split(',', 2);
+            var latlng = new google.maps.LatLng(latlngStr[0], latlngStr[1]);
+
+            geocoder.geocode({ 'location': latlng }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+                        map.setZoom(11);
+                        marker.setMap(null);
+                        marker = new google.maps.Marker({
+                            position: latlng,
+                            map: map
+                        });
+                        infowindow.setContent(results[1].formatted_address);
+                        infowindow.open(map, marker);
+
+                        $('#CurrentResults').val(JSON.stringify(results));
+
+                    } else {
+                        window.alert('No results found');
+                    }
+                } else {
+                    window.alert('Geocoder failed due to: ' + status);
+                }
+            });
+        });
+
+        // [START region_getplaces]
+        // Listen for the event fired when the user selects an item from the
+        // pick list. Retrieve the matching places for that item.
+        google.maps.event.addListener(searchBox, 'places_changed', function () {
+            var places = searchBox.getPlaces();
+
+            if (places.length == 0) {
+                return;
+            }
+
+            marker.setMap(null);
+
+            // For each place, get the icon, place name, and location.
+            var place = places[0];
+
+            var latlng = new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng());
+
+            geocoder.geocode({ 'location': latlng }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+                        map.setZoom(11);
+                        marker.setMap(null);
+                        marker = new google.maps.Marker({
+                            position: latlng,
+                            map: map
+                        });
+                        infowindow.setContent(results[1].formatted_address);
+                        infowindow.open(map, marker);
+
+
+                        $('#CurrentResults').val(JSON.stringify(results));
+
+                    } else {
+                        window.alert('No results found');
+                    }
+                } else {
+                    window.alert('Geocoder failed due to: ' + status);
+                }
+            });
+
+        });
+
+        // Bias the SearchBox results towards places that are within the bounds of the
+        // current map's viewport.
+        google.maps.event.addListener(map, 'bounds_changed', function () {
+            var bounds = map.getBounds();
+            searchBox.setBounds(bounds);
+        });
+    }
+
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    var success =  function (data) {
+        location.href = '@Url.Action("Edit", "Agency")' + '?AgencyId=' + data.id + '&municipalityId=' + data.locationid + '&submitbtn=' + data.submitbtn + '&locationId=' + data.locationId;
+    }
+    function sendLocation() {
+        var jsonOfLog =
+        $.ajax({
+            url: '@Url.Action("CreateLocation", "Location", new { AgencyId = Model.AgencyId, currentResults = Model.Restriction, submitbtn = Model.submitbtn })',
+            data: 'currentResults=' + jsonOfLog,
+            method: 'POST' 
+        })
+        }
+
+</script>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default" style="border: solid; border-color: black">
+            <div class="panel-heading">                
+                <span>Location</span>
+            </div>
+            <div class="panel-body">
+                <input id="pac-input" style="width: 400px !important" class="form-control" type="text" placeholder="Search location">
+                <div id="map-canvas" style="height: 450px"></div>
+                <br />
+                @using (Ajax.BeginForm("CreateLocation", "Location", new AjaxOptions
+                {
+                     HttpMethod = "Post",
+                      OnSuccess = "success",
+                      
+                }))
+                {
+                    @Html.HiddenFor(m => m.CurrentResults)
+                    @Html.HiddenFor(m => m.AgencyId)
+                    @Html.HiddenFor(m => m.Restriction)
+                    @Html.HiddenFor(m => m.submitbtn)
+                    <input type="submit" value="Create Location" class="btn btn-green btn-sm" />
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

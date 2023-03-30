@@ -1,0 +1,40 @@
+﻿@model ClientManagement.DomainModel.BusinessTypeModel 
+@{
+    ViewBag.Breadcramb = "BusinessType Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("CreateEditBusinessTypeData", "BusinessType", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{         
+    @Html.HiddenFor(model => model.BusinessTypeId)  
+    <link href="~/Content/StyleSheet.css" rel="stylesheet" />
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+            <i></i> Business Type Details Capture
+        </div>
+    </div>
+        <div class="panel panel-default" style="border:ridge; border-color:black">
+            <div class="panel-body" style="border: solid; border-color: lightgrey">
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Name : <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = "Name" })
+                    </div>
+                </div>               
+                <div class="col-md-12">
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <button class="btn btn-sm btn-success" type="submit">Save</button>
+                </div>
+            </div>
+        </div>
+}
+
+
+

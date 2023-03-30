@@ -1,0 +1,136 @@
+﻿@model ClientManagement.DomainModel.FacilitationModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="@Url.Content("https://code.jquery.com/jquery-3.3.1.js")"></script>
+<script src="@Url.Content("https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js")"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
+
+<div class="kt-form__body">
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">Facilitation Project Details</h3> 
+            </div>  
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-toolbar-wrapper">
+                    <div class="dropdown dropdown-inline">
+                        <a class="btn btn-outline-brand kt-btn kt-btn--pill" href="@Url.Action("CreateFacilitation", "Facilitation")">Create Facilitation</a>
+                    </div>
+                </div>
+            </div>                    
+        </div>
+        <div class="kt-portlet__body">
+            <table id="example" class="table table-striped- table-bordered table-hover table-checkable" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>Project Name</th>
+                        <th>Relevant Departments</th>                        
+                        <th>Investment Value</th>
+                        <th>Project Manager</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.FacilitationsList)
+                    {
+                        var InvestmentValue = @item.InvestmentValue.ToString("c", ClientManagement.DomainModel.Configuration.CultureInfoSettings.GetZACulture().NumberFormat);
+                        <tr>
+                            <td style="vertical-align: middle">@item.ProjectName </td>
+                            <td style="vertical-align: middle">@item.RelevantDepartments </td>
+                            <td style="vertical-align: middle">@InvestmentValue</td> 
+                            <td style="vertical-align: middle">@item.ProjectManagerName</td> 
+                            
+                                <td style="vertical-align: middle">
+
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Action									
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-fit">
+                                            
+                                            <ul class="kt-nav kt-margin-t-30 kt-margin-b-20">
+                                                <li class="kt-nav__item">
+                                                    <a href="@Url.Action("CreateNewFacilitation", "Facilitation", new { FacilitationId = item.FacilitationId })" class="kt-nav__link">
+                                                        <span class="kt-nav__link-text">Edit Details</span>
+                                                    </a>
+                                                </li>
+                                               
+                                                <li class="kt-nav__item">
+                                                    <a href="@Url.Action("RemoveDocument", "Facilitation", new { FacilitationId = item.FacilitationId })" class="kt-nav__link">
+                                                        <span class="kt-nav__link-text">Remove</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <button type="button" class="btn btn-primary btn-sm" aria-haspopup="true" aria-expanded="false"  onclick="DocumentManagementUpload('@item.FacilitationId')">
+                                           Upload Documents
+                                        </button> 
+                                         <button type="button" class="btn btn-primary btn-sm" aria-haspopup="true" aria-expanded="false"  onclick="FacilitationRequest('@item.FacilitationId')">
+                                           Facilitation Request
+                                        </button> 
+                                    </div>
+                                </td> 
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function DocumentManagementUpload(FacilitationId) {
+        $('#EditRegisterInformation2').load('@Url.Action("CreateEditDocumentDataInfo1s", "Facilitation")' + '?FacilitationId=' + FacilitationId, function () {
+            $('#EditnewRegisterInformation2').modal('show');
+        });
+    }
+</script>
+
+<div class="modal fade" id="EditnewRegisterInformation2" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true" data-width="100%">
+    <div class="modal-dialog" style="width: 100%">
+        <div class="modal-content">
+            <div id="EditRegisterInformation2" class="modal-body" style="width: 100%">
+                <div id="EditRegisterInformation2"></div>
+            </div>
+            <div class="modal-footer">
+                <button aria-hidden="true" data-dismiss="modal" class="btn btn-outline-brand kt-btn kt-btn--pill">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function FacilitationRequest(FacilitationId) {
+        $('#EditRegisterInformation3').load('@Url.Action("CreateEditFacilitationRequest", "Facilitation")' + '?FacilitationId=' + FacilitationId, function () {
+            $('#EditnewRegisterInformation3').modal('show');
+        });
+    }
+</script>
+
+<div class="modal fade" id="EditnewRegisterInformation3" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true" data-width="100%">
+    <div class="modal-dialog" style="width: 100%">
+        <div class="modal-content">
+            <div id="EditRegisterInformation3" class="modal-body" style="width: 100%">
+                <div id="EditRegisterInformation3"></div>
+            </div>
+            <div class="modal-footer">
+                <button aria-hidden="true" data-dismiss="modal" class="btn btn-outline-brand kt-btn kt-btn--pill">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

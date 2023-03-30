@@ -1,0 +1,71 @@
+﻿@model ClientManagement.DomainModel.BankingDetailsModel
+@{
+    ViewBag.Breadcramb = "BankingDetails";
+}
+
+    @Html.HiddenFor(model => model.BankingDetailsId)
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label">
+                Bank  :
+            </label>
+        </div>
+        <div class="form-group">
+            @Html.DropDownList("BankId", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetBankDataInfo(Model.BankList), "Value", "Text", Model.BankId), new { @class = "form-control search-select"})
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label">
+                Account Number <span class="symbol required"></span>
+            </label>
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(x => x.AccountNumber, new { @class = "form-control", @placeholder = "Account Number" , type = "number", required = "required"})
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label">
+                Bank Account Type  :
+            </label>
+        </div>
+        <div class="form-group">
+            @Html.DropDownList("BankAccountTypeId", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetBankAccountTypeDataInfo(Model.BankAccountTypeList), "Value", "Text", Model.BankAccountTypeId), new { @class = "form-control search-select"})
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label">
+                Account Holder Name <span class="symbol required"></span>
+            </label>
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(x => x.AccountHolderName, new { @class = "form-control", @placeholder = "Account Holder Name" , required = "required"})
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label">
+                Bank Branch <span class="symbol required"></span>
+            </label>
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(x => x.BankBranch, new { @class = "form-control", @placeholder = "Bank Branch" , required = "required"})
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label">
+                Bank Code <span class="symbol required"></span>
+            </label>
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(x => x.BankCode, new { @class = "form-control", @placeholder = "Bank Code" , required = "required"})
+        </div>
+    </div>

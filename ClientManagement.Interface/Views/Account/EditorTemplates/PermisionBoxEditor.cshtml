@@ -1,0 +1,9 @@
+﻿@model Amseseni.Types.Account.RoleModulePermisions
+
+@Html.HiddenFor(p => p.ModuleObjectID)
+@Html.HiddenFor(p => p.Name)
+@Html.HiddenFor(p => p.RoleModuleID)
+<label class='checkbox'>
+    @Html.CheckBoxFor(p => p.Checked, new { @class = "flat-green" })
+    @Model.Name
+</label>

@@ -1,0 +1,75 @@
+﻿@model ClientManagement.DomainModel.BudgetModel
+@{
+    ViewBag.Breadcramb = "Creditor Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("CreateBudgetData", "Budget", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.BudgetId)
+
+    @Html.HiddenFor(model => model.CreditorId)
+
+<div class="panel panel-inverse">
+<div class="panel-heading">
+    <div class="panel-heading-btn">
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>                       
+    </div>
+      <strong>Expence</strong>      
+    </div>   
+   <div class="panel-body">
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">
+                        Amount : <span class="symbol required"></span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.Actual, new { @class = "form-control", @placeholder = "Amount" })
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">
+                        Budget Category :
+                    </label>
+                </div>
+                <div class="form-group">
+                    @Html.DropDownList("BudgetCategoryId", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetBudgetCategoryDataInfo(Model.BudgetCategoryList), "Value", "Text", Model.BudgetCategoryId), new { @class = "form-control search-select" })
+                </div>
+            </div>           
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">
+                        Comments Description : <span class="symbol required"></span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.Comments, new { @class = "form-control", @placeholder = "Comments Description" })
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">
+                        Expence Date : <span class="symbol required"></span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.CreatedDate, new { @class = "form-control date-picker", @placeholder = "CreatedDate" })
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <button class="btn btn-sm btn-success" type="submit">Save</button>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,14 @@
+﻿@model Techhill.Framework.DomainTypes.Account.RoleModel
+@{
+    var status = Model.Checked ? "success" : "warning";
+}
+<tr class='@status'>
+    <td>
+        @Html.HiddenFor(p => p.RoleID)
+        @Html.HiddenFor(p => p.Description)
+        @Html.HiddenFor(p => p.Name)
+        @Html.HiddenFor(p => p.IsActive)
+    </td>
+    <td align="center"> @Html.CheckBoxFor(p => p.Checked)</td>
+    <td>@Html.DisplayFor(p => p.Name)</td>
+</tr>

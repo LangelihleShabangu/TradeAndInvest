@@ -1,0 +1,83 @@
+﻿@model ClientManagement.DomainModel.DocumentModel
+@{
+    ViewBag.Breadcramb = "Document Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    MenuSelected('Membership');
+</script>
+
+<link href="~/Content/StyleSheet.css" rel="stylesheet" />
+
+@using (Html.BeginForm("CreateEditDocumentData", "Document", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{         
+    @Html.HiddenFor(model => model.DocumentId)  
+    
+    <div class="row">
+
+        <div class="panel panel-default">
+            <div class="Headingtest">
+                Document Details              
+            </div>
+            <div class="panel-body" style="border: solid; border-color: lightgrey">
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Member Information:
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.DropDownList("ClientID", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetClientListDataInfo(Model.ContactInformationDataList), "Value", "Text", Model.ClientId), new { @class = "form-control search-select" })
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Name : <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = "Name" })
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Document Date : <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.CreatedDate, new { @class = "form-control date-picker", @placeholder = "Document Date" })
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="file">Upload Document:</label>
+                        <input type="file" name="file" id="file" style="width: 100%;" />
+                        @if (Model.CurrentDocument != null)
+                        {                
+                            <img src="@String.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.CurrentDocument))" />
+                            <br />
+                        }
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <button class="btn btn-sm btn-success" type="submit">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+

@@ -1,0 +1,206 @@
+﻿@model ClientManagement.DomainModel.ClientAccountRegistrationModel
+
+<script>
+    jQuery(document).ready(function () {
+        Main.init();
+        FormElements.init();
+    });
+</script>
+
+<link href="~/Content/StyleSheet.css" rel="stylesheet" />
+
+@using (Html.BeginForm("CreateClientAccountRegistration", "Client", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.ClientId)
+
+    @Html.HiddenFor(model => model.ClientAccountRegistrationId)
+
+    <div class="panel-heading">
+        <i></i>Client Account Registration
+    </div>
+    <div class="tab-content">
+        <div class="panel-body">
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">
+                        Account Number :
+                    </label>
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.AccountNumber, new { @class = "form-control", @placeholder = "Account Number", @required = "required" })
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">
+                        Start Payment Date :
+                    </label>
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.StartPaymentDate, new { @class = "form-control date-picker", @placeholder = "Start Payment Date", @min = "1900-01-01" })
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">
+                        Amount :
+                    </label>
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.Amount, new { @class = "form-control", @placeholder = "Amount", @min = "100" })
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">
+                        Terms in Months :
+                    </label>
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.Terms, new { @class = "form-control", @placeholder = "Terms", type = "number", @min = "6" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label">
+                        Deposit :
+                    </label>
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.Deposit, new { @class = "form-control", @placeholder = "Deposit" })
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label">
+                        Insurance :
+                    </label>
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.Insurance, new { @class = "form-control", @placeholder = "Insurance" })
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label">
+                        Initiation Fee :
+                    </label>
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.InitiationFee, new { @class = "form-control", @placeholder = "Insurance" })
+                </div>
+            </div> 
+                       
+            <div class="row">
+                <div class="panel-body">
+
+                    <table border="1">
+                        <tr>
+                            <td>
+                                <div class="Headingtest">
+                                    <em><strong>Association Varification for - : @Model.Name </strong></em>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <table>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr>
+                                                <td>Association Verification :</td>
+                                                <td width="20px"></td>
+                                                <td>@Html.CheckBoxFor(m => m.IsAssociationVerified, new { @class = "flat-green form-control" })</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <table>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr>
+                                                <td>Association Documents :</td>
+                                                <td width="20px"></td>
+                                                <td>@Html.CheckBoxFor(m => m.IsAssociationDocuments, new { @class = "flat-green form-control" })</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table border="1">
+                        <tr>
+                            <td>
+                                <div class="Headingtest">
+                                    <em><strong>Credit Verification for - : @Model.Name </strong></em>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <table>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr>
+                                                <td>Credit Verification :</td>
+                                                <td width="20px"></td>
+                                                <td>@Html.CheckBoxFor(m => m.IsCreditVerified, new { @class = "flat-green form-control" })</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <table>
+                                            <tr>
+                                                <td>Credit Proof of Residence :</td>
+                                                <td width="20px"></td>
+                                                <td>@Html.CheckBoxFor(m => m.IsProofofResidence, new { @class = "flat-green form-control" })</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <table>
+                                            <tr>
+                                                <td>Credit Bank Statement :</td>
+                                                <td width="20px"></td>
+                                                <td>@Html.CheckBoxFor(m => m.IsBankStatement, new { @class = "flat-green form-control" })</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <button class="btn btn-sm btn-success" type="submit">Save</button>
+            </div>
+
+        </div>
+    </div>
+
+}
+
+
+
+

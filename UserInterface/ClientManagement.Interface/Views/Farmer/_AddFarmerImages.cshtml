@@ -1,0 +1,581 @@
+﻿@model ClientManagement.DomainModel.FarmerModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";    
+}
+
+<script src="@Url.Content("https://code.jquery.com/jquery-3.3.1.js")"></script>
+<script src="@Url.Content("https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js")"></script>
+
+<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+
+    <!--Begin::App-->
+    <div class="kt-grid kt-grid--desktop kt-grid--ver kt-grid--ver-desktop kt-app">
+
+        <!--Begin:: App Aside Mobile Toggle-->
+        <button class="kt-app__aside-close" id="kt_profile_aside_close">
+            <i class="la la-close"></i>
+        </button>
+
+        <!--End:: App Aside Mobile Toggle-->
+
+        <!--Begin:: App Aside-->
+        <div class="kt-grid__item kt-app__toggle kt-app__aside kt-app__aside--sm kt-app__aside--fit" id="kt_profile_aside">
+
+            <!--Begin:: Portlet-->
+            <div class="kt-portlet">
+                <div class="kt-portlet__body">
+                    <div class="kt-widget kt-widget--general-1">
+                        <div class="kt-media kt-media--brand kt-media--md kt-media--circle">
+                            @if (Model.Image == null)
+                            {
+                                <img src="~/Newassets/media/users/default.jpg" alt="image">                                                                               
+                            }
+                            else
+                            {                                    
+                                <img src='@String.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.Image))' />
+                            }
+                        </div>
+                        <div class="kt-widget__wrapper">
+                            <div class="kt-widget__label">
+                                <a href="#" class="kt-widget__title">@Model.FirstName  @Model.Surname
+                                </a>
+                                <span class="kt-widget__desc">Farmer Owner
+                                </span>
+                            </div>
+                            <div class="kt-widget__toolbar kt-widget__toolbar--top-">
+                                <div class="btn-group">
+                                    <div class="dropdown dropdown-inline">
+                                        <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="flaticon-more-1"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-fit dropdown-menu-md dropdown-menu-right">
+
+                                            <!--begin::Nav-->
+                                            <ul class="kt-nav">
+                                                <li class="kt-nav__head">Export Options
+													<i class="flaticon2-information" data-toggle="kt-tooltip" data-placement="right" title="Click to learn more..."></i>
+                                                </li>
+                                                <li class="kt-nav__separator"></li>
+                                                <li class="kt-nav__item">
+                                                    <a href="#" class="kt-nav__link">
+                                                        <i class="kt-nav__link-icon flaticon2-drop"></i>
+                                                        <span class="kt-nav__link-text">Users</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-nav__item">
+                                                    <a href="#" class="kt-nav__link">
+                                                        <i class="kt-nav__link-icon flaticon2-calendar-8"></i>
+                                                        <span class="kt-nav__link-text">Reports</span>
+                                                        <span class="kt-nav__link-badge">
+                                                            <span class="kt-badge kt-badge--danger">9</span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-nav__item">
+                                                    <a href="#" class="kt-nav__link">
+                                                        <i class="kt-nav__link-icon flaticon2-drop"></i>
+                                                        <span class="kt-nav__link-text">Statements</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-nav__item">
+                                                    <a href="#" class="kt-nav__link">
+                                                        <i class="kt-nav__link-icon flaticon2-new-email"></i>
+                                                        <span class="kt-nav__link-text">Customer Support</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-nav__separator"></li>
+                                                <li class="kt-nav__foot">
+                                                    <a class="btn btn-label-brand btn-bold btn-sm" href="#">Proceed</a>
+                                                    <a class="btn btn-clean btn-bold btn-sm" href="#" data-toggle="kt-tooltip" data-placement="right" title="Click to learn more...">Learn more</a>
+                                                </li>
+                                            </ul>
+
+                                            <!--end::Nav-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-portlet__separator"></div>
+                <div class="kt-portlet__body">
+                    <ul class="kt-nav kt-nav--bolder kt-nav--fit-ver kt-nav--v4" role="tablist">
+                        <li class="kt-nav__item ">
+                            <a class="kt-nav__link" href="@Url.Action("FarmerPersonalDetails", "Farmer",  new { FarmerId = Model.FarmerId })" role="tab">
+                                <span class="kt-nav__link-icon"><i class="flaticon2-user"></i></span>
+                                <span class="kt-nav__link-text">Personal Information</span>
+                            </a>
+                        </li>
+                        <li class="kt-nav__item active">
+                            <a class="kt-nav__link" href="@Url.Action("TradingDetails", "Farmer",  new { FarmerbyId = Model.FarmerId })" role="tab">
+                                <span class="kt-nav__link-icon"><i class="flaticon-feed"></i></span>
+                                <span class="kt-nav__link-text">Farm Trading Details</span>
+                            </a>
+                        </li>
+                        <li class="kt-nav__item  ">
+                           <a class="kt-nav__link" href="@Url.Action("FarmerDescriptionResources", "Farmer",  new { FarmerId = Model.FarmerId })" role="tab">
+                                <span class="kt-nav__link-icon"><i class="flaticon2-settings"></i></span>
+                                <span class="kt-nav__link-text">Farm Natural Resorces</span>
+                            </a>
+                        </li>
+                        <li class="kt-nav__item  ">
+                          <a class="kt-nav__link" href="@Url.Action("FarmerInfrastucture", "Farmer",  new { FarmerId = Model.FarmerId })" role="tab">
+                                <span class="kt-nav__link-icon"><i class="flaticon2-chart2"></i></span>
+                                <span class="kt-nav__link-text">Farmer Infrastructure</span>
+                            </a>
+                        </li>
+                        <li class="kt-nav__item ">
+                            <a class="kt-nav__link" href="@Url.Action("FarmerAsserts", "Farmer", new { FarmerId = Model.FarmerId })" role="tab">
+                                <span class="kt-nav__link-icon"><i class="flaticon2-chart2"></i></span>
+                                <span class="kt-nav__link-text">Farmer Movable Asserts</span>
+                            </a>
+                        </li>
+
+                        <li class="kt-nav__item ">
+                            <a class="kt-nav__link" href="@Url.Action("FarmerSocioEconomic", "Farmer", new { FarmerId = Model.FarmerId })" role="tab">
+                                <span class="kt-nav__link-icon"><i class="flaticon2-chart2"></i></span>
+                                <span class="kt-nav__link-text">Farmer Socio-Economic</span>
+                            </a>
+                        </li>    
+                    </ul>
+                </div>
+                <div class="kt-portlet__separator"></div>
+                <div class="kt-portlet__body">
+                    <ul class="kt-nav kt-nav--bolder kt-nav--fit-ver kt-nav--v4" role="tablist">
+                         <li class="kt-nav__item ">
+                             <a class="kt-nav__link" href="@Url.Action("Grants", "Farmer", new { FarmerId = Model.FarmerId })" role="tab" data-toggle="kt-tooltip" data-placement="right" title="DryCrop Information Details">
+                                <span class="kt-nav__link-icon"><i class="flaticon-safe-shield-protection"></i></span>
+                                <span class="kt-nav__link-text">Farmer Grants Funding</span>
+                            </a>
+                        </li>
+                        <li class="kt-nav__item">
+                            <a class="kt-nav__link" href="@Url.Action("Livestock", "Farmer", new { FarmerId = Model.FarmerId })" role="tab" data-toggle="kt-tooltip" data-placement="right" title="LiveStock Information Details">
+                                <span class="kt-nav__link-icon"><i class="flaticon2-chart2"></i></span>
+                                <span class="kt-nav__link-text">LiveStock</span>
+                            </a>
+                        </li>
+                         <li class="kt-nav__item">
+                             <a class="kt-nav__link" href="@Url.Action("Vegetable", "Farmer", new { FarmerId = Model.FarmerId })" role="tab" data-toggle="kt-tooltip" data-placement="right" title="Vegetable Information Details">
+                                <span class="kt-nav__link-icon"><i class="flaticon-safe-shield-protection"></i></span>
+                                <span class="kt-nav__link-text">Vegetable</span>
+                            </a>
+                        </li>
+                        <li class="kt-nav__item">
+                            <a class="kt-nav__link" href="@Url.Action("Fruit", "Farmer", new { FarmerId = Model.FarmerId })" role="tab" data-toggle="kt-tooltip" data-placement="right" title="Fruit Information Details">
+                                <span class="kt-nav__link-icon"><i class="flaticon-safe-shield-protection"></i></span>
+                                <span class="kt-nav__link-text">Fruit</span>
+                            </a>
+                        </li>
+                        <li class="kt-nav__item">
+                             <a class="kt-nav__link" href="@Url.Action("DryCrop", "Farmer", new { FarmerId = Model.FarmerId })" role="tab" data-toggle="kt-tooltip" data-placement="right" title="DryCrop Information Details">
+                                <span class="kt-nav__link-icon"><i class="flaticon-safe-shield-protection"></i></span>
+                                <span class="kt-nav__link-text">DryCrop</span>
+                            </a>
+                        </li>
+                         <li class="kt-nav__item ">
+                             <a class="kt-nav__link" href="@Url.Action("FinancialPerformance", "Farmer", new { FarmerId = Model.FarmerId })" role="tab" data-toggle="kt-tooltip" data-placement="right" title="DryCrop Information Details">
+                                <span class="kt-nav__link-icon"><i class="flaticon-safe-shield-protection"></i></span>
+                                <span class="kt-nav__link-text">Financial Performance</span>
+                            </a>
+                        </li>                       
+                        <li class="kt-nav__space"></li>                        
+                    </ul>
+                </div>
+            </div>
+
+            <!--End:: Portlet-->
+
+            <!--Begin:: Portlet-->
+            <div class="kt-portlet kt-portlet--head-noborder">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title  kt-font-danger">Important Update
+                        </h3>
+                    </div>
+                    <div class="kt-portlet__head-toolbar">
+                        <span class="kt-badge kt-badge--bolder kt-badge kt-badge--inline kt-badge--danger">Now</span>
+                    </div>
+                </div>
+                <div class="kt-portlet__body kt-portlet__body--fit-top">
+                    <div class="kt-section kt-section--space-sm">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                    </div>
+                    <div class="kt-section kt-section--last">
+                        <a href="#" class="btn btn-brand btn-sm btn-bold"><i class=""></i>Take Action</a>&nbsp;
+						<a href="#" class="btn btn-clean btn-sm btn-bold">Dismiss</a>
+                    </div>
+                </div>
+            </div>
+
+            <!--End:: Portlet-->
+        </div>
+
+        <!--End:: App Aside-->
+
+        <!--Begin:: App Content-->
+        <div class="kt-grid__item kt-grid__item--fluid kt-app__content">
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">Farm Trading Details </h3>
+                    </div>                   
+                </div>
+
+<div class="col-lg-6 col-xl-4 order-lg-1 order-xl-1">
+
+        <!--begin::Portlet-->
+        <div class="kt-portlet kt-portlet--height-fluid">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">Latest Uploads</h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-actions">
+                        <a href="#" class="btn btn-default btn-upper btn-sm btn-bold">All FILES</a>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body kt-portlet__body--fit kt-portlet__body--fluid">
+                <div class="kt-widget-7">
+                    <div class="kt-widget-7__items">
+                        <div class="kt-widget-7__item">
+                            <div class="kt-widget-7__item-pic">
+                                <img src="Newassets/media/files/doc.svg" alt="" />
+                            </div>
+                            <div class="kt-widget-7__item-info">
+                                <a href="#" class="kt-widget-7__item-title">Keeg Design Reqs
+																	</a>
+                                <div class="kt-widget-7__item-desc">
+                                    95 MB
+																
+                                </div>
+                            </div>
+                            <div class="kt-widget-7__item-toolbar">
+                                <div class="dropdown dropdown-inline">
+                                    <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="flaticon-more-1"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <ul class="kt-nav">
+                                            <li class="kt-nav__section kt-nav__section--first">
+                                                <span class="kt-nav__section-text">EXPORT TOOLS</span>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon la la-eye"></i>
+                                                    <span class="kt-nav__link-text">View</span>
+                                                </a>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon la la-comment-o"></i>
+                                                    <span class="kt-nav__link-text">Coments</span>
+                                                </a>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon la la-copy"></i>
+                                                    <span class="kt-nav__link-text">Copy</span>
+                                                </a>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon la la-file-excel-o"></i>
+                                                    <span class="kt-nav__link-text">Excel</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-widget-7__item">
+                            <div class="kt-widget-7__item-pic">
+                                <img src="Newassets/media/files/pdf.svg" alt="" />
+                            </div>
+                            <div class="kt-widget-7__item-info">
+                                <a href="#" class="kt-widget-7__item-title">S.E.R Agreement
+																	</a>
+                                <div class="kt-widget-7__item-desc">
+                                    805 MB
+																
+                                </div>
+                            </div>
+                            <div class="kt-widget-7__item-toolbar">
+                                <div class="dropdown dropdown-inline">
+                                    <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="flaticon-more-1"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <ul class="kt-nav">
+                                            <li class="kt-nav__section kt-nav__section--first">
+                                                <span class="kt-nav__section-text">EXPORT TOOLS</span>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon la la-eye"></i>
+                                                    <span class="kt-nav__link-text">View</span>
+                                                </a>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon la la-comment-o"></i>
+                                                    <span class="kt-nav__link-text">Coments</span>
+                                                </a>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon la la-copy"></i>
+                                                    <span class="kt-nav__link-text">Copy</span>
+                                                </a>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon la la-file-excel-o"></i>
+                                                    <span class="kt-nav__link-text">Excel</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-widget-7__item">
+                            <div class="kt-widget-7__item-pic">
+                                <img src="Newassets/media/files/jpg.svg" alt="" />
+                            </div>
+                            <div class="kt-widget-7__item-info">
+                                <a href="#" class="kt-widget-7__item-title">FlyMore Screenshot
+																	</a>
+                                <div class="kt-widget-7__item-desc">
+                                    4 MB
+																
+                                </div>
+                            </div>
+                            <div class="kt-widget-7__item-toolbar">
+                                <div class="dropdown dropdown-inline">
+                                    <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="flaticon-more-1"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <ul class="kt-nav">
+                                            <li class="kt-nav__section kt-nav__section--first">
+                                                <span class="kt-nav__section-text">EXPORT TOOLS</span>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon la la-eye"></i>
+                                                    <span class="kt-nav__link-text">View</span>
+                                                </a>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon la la-comment-o"></i>
+                                                    <span class="kt-nav__link-text">Coments</span>
+                                                </a>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon la la-copy"></i>
+                                                    <span class="kt-nav__link-text">Copy</span>
+                                                </a>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon la la-file-excel-o"></i>
+                                                    <span class="kt-nav__link-text">Excel</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-widget-7__item">
+                            <div class="kt-widget-7__item-pic">
+                                <img src="Newassets/media/files/zip.svg" alt="" />
+                            </div>
+                            <div class="kt-widget-7__item-info">
+                                <a href="#" class="kt-widget-7__item-title">ST.11 Dacuments
+																	</a>
+                                <div class="kt-widget-7__item-desc">
+                                    Unknown
+																
+                                </div>
+                            </div>
+                            <div class="kt-widget-7__item-toolbar">
+                                <div class="dropdown dropdown-inline">
+                                    <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="flaticon-more-1"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <ul class="kt-nav">
+                                            <li class="kt-nav__section kt-nav__section--first">
+                                                <span class="kt-nav__section-text">EXPORT TOOLS</span>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon la la-eye"></i>
+                                                    <span class="kt-nav__link-text">View</span>
+                                                </a>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon la la-comment-o"></i>
+                                                    <span class="kt-nav__link-text">Coments</span>
+                                                </a>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon la la-copy"></i>
+                                                    <span class="kt-nav__link-text">Copy</span>
+                                                </a>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon la la-file-excel-o"></i>
+                                                    <span class="kt-nav__link-text">Excel</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-widget-7__item">
+                            <div class="kt-widget-7__item-pic">
+                                <img src="Newassets/media/files/xml.svg" alt="" />
+                            </div>
+                            <div class="kt-widget-7__item-info">
+                                <a href="#" class="kt-widget-7__item-title">XML AOL Data Fetchin
+																	</a>
+                                <div class="kt-widget-7__item-desc">
+                                    4 MB
+																
+                                </div>
+                            </div>
+                            <div class="kt-widget-7__item-toolbar">
+                                <div class="dropdown dropdown-inline">
+                                    <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="flaticon-more-1"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <ul class="kt-nav">
+                                            <li class="kt-nav__section kt-nav__section--first">
+                                                <span class="kt-nav__section-text">EXPORT TOOLS</span>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon la la-eye"></i>
+                                                    <span class="kt-nav__link-text">View</span>
+                                                </a>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon la la-comment-o"></i>
+                                                    <span class="kt-nav__link-text">Coments</span>
+                                                </a>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon la la-copy"></i>
+                                                    <span class="kt-nav__link-text">Copy</span>
+                                                </a>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon la la-file-excel-o"></i>
+                                                    <span class="kt-nav__link-text">Excel</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kt-widget-7__foot">
+                        <img src="Newassets/media/misc/clouds.png" alt="" />
+                        <div class="kt-widget-7__upload">
+                            <a href="#"><i class="flaticon-upload"></i></a>
+                            <span>Drag files here</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--end::Portlet-->
+    </div>
+            </div>
+        </div>
+
+        <!--End:: App Content-->
+    </div>
+
+    <!--End::App-->
+</div>
+
+
+
+<!--begin:: Toast markup-->
+<div class="toast toast-custom toast-fill fade hide" role="alert" aria-live="assertive" aria-atomic="true" id="kt_toast_1">
+    <div class="toast-header">
+        <i class="toast-icon flaticon2-attention kt-font-danger"></i>
+        <span class="toast-title">Farmer Information Created</span>
+    </div>
+    <div class="toast-body">
+         Successfully Created Farmer Information
+    </div>
+</div>
+
+<!--end:: Toast markup-->
+
+<script type="text/javascript">
+    function OnSuccess(data) {
+        $("#kt_toast_toggle_1").click();
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
+
+<script>
+    function SubmitTradingDetails() {
+        onBegin();
+        $.ajax({
+            cache: false,
+            type: "GET",
+            data: {
+                TradingDetailsId: '@Model.TradingDetailsId',
+                FarmerId: '@Model.FarmerId',
+                EntityName: $("#EntityName").val(),
+                LegalEntityTypeId: $("#LegalEntityTypeId").val(),
+                NumberofDirectors: $("#NumberofDirectors").val(),
+                CoRegNo: $("#CoRegNo").val(),
+                TaxRegNo: $("#TaxRegNo").val(),
+                VatRegNo: $("#VatRegNo").val(),
+                Yearsinexistance: $("#Yearsinexistance").val()
+            },
+            url: '@Url.Action("UpdateTradingDetails", "Farmer")',
+            success: function (data) {
+                onComplete();
+                $("#kt_toast_toggle_1").click();
+                window.location.href = '@Url.Action("FarmerDescriptionResources", "Farmer")' + '?FarmerId=' + '@Model.FarmerId';
+            }
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    function onBegin() {
+        $("#wait").css("display", "block");
+    }
+    function onComplete() {
+        $("#wait").css("display", "none");
+    }
+</script>

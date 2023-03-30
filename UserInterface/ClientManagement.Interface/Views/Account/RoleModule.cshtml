@@ -1,0 +1,85 @@
+﻿@model Techhill.Framework.DomainTypes.Account.RoleModulesModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";  
+}
+
+
+    @using (Html.BeginForm("RoleModule", "Account", FormMethod.Post, new { @id = "mainForm" }))
+    {
+       @Html.HiddenFor(p => p.RoleId)
+       <div class="kt-container  kt-grid__item kt-grid__item--fluid">
+        <div class="row">
+            <div class="col-md-12">
+
+                <!--begin::Portlet-->
+                <div class="kt-portlet">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">Roles Information Capture</h3>
+                        </div>
+                    </div>
+                   
+                    <!--begin::Form-->
+                    <div class="kt-portlet__body">
+
+                        <div class="form-group">
+                         
+                    <div class="panel-body" style="height: 350px !important; overflow-y: scroll; overflow-x: hidden;">
+                        <div class="dd" id="nestable2">
+                            @if (Model.Modules.Count == 0)
+                            {
+                                <div class="dd-empty"></div>
+                            }
+                            else
+                            {
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tbody>
+
+                                            @for (var count = 0; count < Model.Modules.Count; count++)
+                                            {
+                                                var status = Model.Modules[count].Checked ? "success" : "warning";
+                                                <tr class='@status'>
+                                                    <td>
+                                                        @Html.HiddenFor(p => p.Modules[count].ModuleID)
+                                                        @Html.HiddenFor(p => p.Modules[count].Name)
+                                                        @Html.HiddenFor(p => p.Modules[count].Description)
+                                                    </td>
+                                                    <td align="center"> @Html.CheckBoxFor(p => p.Modules[count].Checked, new { @class = "flat-green" })</td>
+                                                    <td>@Html.DisplayFor(p => p.Modules[count].Name)</td>
+                                                    <td align="center">
+                                                        @if (Model.Modules[count].Checked)
+                                                        {
+                                                            <a href='@Url.Action("ModulePermissions","Account", new { area = "", id = Model.RoleId , moduleid = Model.Modules[count].ModuleID })' class="btn btn-primary btn-circle">
+                                                                <i class="fa fa-wrench" style="font-size:15px"></i>
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                        </div>                        
+
+                        <div class="kt-form__actions">
+                            <button type="submit" class="btn btn-success">Save</button>                            
+                            <a href="@Url.Action("Roles")" class="btn btn-primary">Back</a>
+                        </div>
+
+                    </div>   
+                    <!--end::Form-->
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+   </div>
+</div>     
+          
+    }
+
+

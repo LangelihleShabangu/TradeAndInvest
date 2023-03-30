@@ -1,0 +1,165 @@
+﻿@model Techhill.Framework.DomainTypes.Account.UserProfileModel
+@{
+    // ViewBag.Title = "Edit User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = @Model.UserID > 0 ? "Edit User" : "Add User";
+}
+<script>
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function frmchangeSubmit(data) {
+        if (data.Success == true) {
+            $('#changePasswordModal').modal('toggle');
+        } else {
+            alert(data.Error);
+        }
+    }
+    $(document).ready(function () {
+        $("#OpenChangeOffice").on("click", function () {
+            $("#modal-content").load('@Url.Action("ChangeOffice", "Account")' + '?id=' + '@Model.UserProfileID');
+        });
+
+        $("#imgInp").change(function () {
+            readURL(this);
+        });
+    });
+
+    function OpenChangePassword() {
+        $('#changePasswordModal').load('@Url.Action("ChangePassword", "Account")' + '?username=' + '@Model.UserName', function () {
+            $('#changePasswordModal').modal('show');
+        });
+    }
+
+    $('#WindowsAuthentication').change(function () {
+        ('#Password').toggle();
+    })
+</script>
+@using (Html.BeginForm())
+{
+     @Html.ValidationSummary()
+     @Html.HiddenFor(p => p.AdminEdit)
+     @Html.HiddenFor(p => p.UserProfileID)
+    
+        <div class="kt-container  kt-grid__item kt-grid__item--fluid">
+        <div class="row">
+            <div class="col-md-12">
+
+                <!--begin::Portlet-->
+                <div class="kt-portlet">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">Roles Information Capture</h3>
+                        </div>
+                    </div>
+                                        <!--begin::Form-->
+                    <div class="kt-portlet__body">
+
+                        <div class="form-group">
+                            <label>UserName </label>
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", required = "required" })
+                        </div>
+                        @if (Model.UserID == 0)
+                        {
+                        <div class="form-group">
+                            <label>Password </label>
+                            @Html.TextBoxFor(m => m.Password, new {@type = "Password",  @class = "form-control", required = "required" })
+                        </div>
+                        }
+                       <div class="form-group">
+                            <label>FirstName </label>
+                            @Html.TextBoxFor(m => m.FirstName, new {@class = "form-control", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            <label>LastName </label>
+                            @Html.TextBoxFor(m => m.LastName, new {@class = "form-control", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            <label>Telephone </label>
+                            @Html.TextBoxFor(m => m.Telephone, new {@class = "form-control", required = "required" })
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cellphone </label>
+                            @Html.TextBoxFor(m => m.Cellphone, new {@class = "form-control", required = "required" })
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email </label>
+                            @Html.TextBoxFor(m => m.Email, new {@class = "form-control", required = "required" })
+                        </div>
+
+                        <div class="kt-form__actions">                           
+                   
+                        <button type="submit" class="btn btn-success">
+                            @{ if (Model.UserProfileID == 0)
+                               {<text>Register</text> }
+                               else
+                               { <text>Save</text> }
+                            }
+                        </button>
+                        @if (Model.UserProfileID > 0)
+                        {
+                            <button type="button" class="btn btn-red" onclick="OpenChangePassword()">
+                                @if (Model.AdminEdit)
+                                { <text>Reset</text> }
+                                else
+                                { <text>Change</text> } Password
+                            </button>
+                                if (Model.AdminEdit)
+                                {
+                                <a href="@Url.Action("UserRole", new { id = Model.UserProfileID })" class="btn btn-primary">Edit Access</a>
+                                }
+                        }
+                        @if (Request.IsAuthenticated)
+                        {
+                            <a href="@Url.Action("Users")" class="btn btn-primary">Back</a>
+                        }
+                    </div>
+             
+
+                    </div>   
+                    <!--end::Form-->
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+}
+
+<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div tabindex="-1" id="addEditForm" class="modal fade bs-example-modal-lg" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @using (Ajax.BeginForm("ChangePassword", null, new AjaxOptions() { HttpMethod = "Post", OnSuccess = "frmchangeSubmit" }, new { id = "frmchangePassword" }))
+            {
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Create / Edit</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="modal-content" />
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+                    <input class="btn btn-primary" type="submit" value="Save changes" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

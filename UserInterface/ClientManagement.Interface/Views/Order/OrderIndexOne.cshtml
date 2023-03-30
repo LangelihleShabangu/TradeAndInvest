@@ -1,0 +1,123 @@
+﻿@model ClientManagement.DomainModel.OrderProductInfoFilterModel
+
+<script>
+    MenuSelected('TradeCentre');
+</script>
+
+<link href="~/Content/StyleSheet.css" rel="stylesheet" />
+
+@Html.HiddenFor(model => model.OrderId)
+@Html.HiddenFor(model => model.OrderItemsId)
+
+
+<div id="divOrderDetailsData">
+    <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Discount</th>
+                <th>Cost</th>
+                <th>Remove</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderProductInfoFilterList)
+            {
+                var Amount = @item.Standard.ToString("c", ClientManagement.DomainModel.Configuration.CultureInfoSettings.GetZACulture().NumberFormat);
+                <tr>
+                    <td>@item.Product</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Discount</td>
+                    <td>@Amount</td>
+
+                    <td>
+                        @using (Html.BeginForm("DeleteOrderItems", "Order", new { OrderId = Model.OrderId, OrderItemsId = item.OrderItemsId }))
+                        {
+                            <a href="#@DeleteData" class="btn btn-xs btn-red" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+
+                                <div class="modal fade" id="@DeleteData" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div id="users" class="modal-body">
+                                                <p>Are you sure you want to delete this item?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button aria-hidden="true" data-dismiss="modal" class="btn btn-sm btn-default">
+                                                    Close
+                                                </button>
+                                                <input type="submit" name="submitbtn" class="btn btn-red tooltips" data-placement="top" data-original-title="Remove" value="Remove" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        }
+                    </td>
+
+                    <td>
+                        @using (Html.BeginForm("AddQuantity", "Order", new { OrderItemsId = item.OrderItemsId, OrderId = item.OrderId }))
+                        {
+                            @Html.HiddenFor(model => model.OrderId)
+
+                            if (!Model.IsView)
+                            {
+                                <a href="#@item.OrderItemsId" class="btn btn-xs btn-primary" data-toggle="modal">Add Quantity</a>
+                            }
+
+                            <div class="modal fade" id="@item.OrderItemsId" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div id="users" class="modal-body">
+                                            <div class="panel-heading">
+                                                Quantity Information
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div>
+                                                Quantity :  @Html.TextBoxFor(x => x.Quantity, new { @class = "form-control", @placeholder = "Quantity", type = "number" })
+                                            </div>
+                                            <button aria-hidden="true" data-dismiss="modal" class="btn btn-sm btn-default">
+                                                Close
+                                            </button>
+                                            <input type="submit" name="submitbtn" class="btn btn-red tooltips" data-placement="top" data-original-title="Submit" value="Submit" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+    function OrderItemInformation(OrderId) {
+        $('#OrderItemDetailsView').load('@Url.Action("AddStockItem", "Order")' + '?OrderId=' + OrderId, function () {
+            $('#OrderItemDetailsView').modal('show');
+        });
+    }
+</script>
+
+<div class="modal fade" id="OrderItemDetailsView" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="OrderItemInfoView" class="modal-body">
+                <div id="OrderItemDetailsView"></div>
+            </div>
+            <div class="modal-footer">
+                <button aria-hidden="true" data-dismiss="modal" class="btn btn-sm btn-default">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

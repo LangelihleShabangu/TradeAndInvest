@@ -1,0 +1,118 @@
+﻿@model VicocaApplication.DomainTypesModel.MaterialInfoReportModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Breadcramb = "Reports";
+}
+
+<script>
+    //MenuSelected('ADHProgram');
+</script>
+
+<div class="panel panel-default" style="border: ridge; border-color: black">
+    <div class="panel-heading">
+        <i></i>Generate Report</b>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("GenerateMaterialReport", "Report"))
+        {
+            <div class="col-md-1">
+                <input type="submit" name="submitbtn" class="btn btn-sm btn-success" data-placement="top" data-original-title="Generate Report" value="Generate Report" />
+            </div>
+        }
+
+        @using (Html.BeginForm("GenerateReport", "Report"))
+        {
+            <div class="col-md-1">
+                <button class="btn btn-sm btn-success" type="submit">Generate Excel Report</button>
+            </div>
+        }
+    </div>
+
+<div style="border: ridge; border-color: black">
+    @if (Model.MaterialInfoReportInfoList != null && Model.MaterialInfoReportInfoList.Count > 0)
+    {
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i></i><em><strong>Stock on hand in all levels</strong> </em>
+                    <div class="panel-tools">
+                        <a class="btn btn-xs btn-green" href="">R @Model.MaterialInfoReportInfoList.Sum(f => f.TotalCost).ToString("#0.00")</a>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+
+                    <table class="table table-striped table-bordered table-hover table-full-width" id="sample_11">
+                        <thead>
+                            <tr>
+                                @*<th>Date</th>*@
+                                <th>Material Name</th>
+                                <th>Quantity</th>
+                                <th>Cost Per Unit</th>
+                                <th>Total Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.MaterialInfoReportInfoList)
+                            {
+                                <tr>
+                                    @*<td>@item.Date.ToString("dd MMMM yyyy")</td>*@
+                                    <td>@item.MaterialName</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@item.CostPerUnit</td>
+                                    <td>@item.TotalCost</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+                    <i></i><em><strong>Outstanding Purchase Orders</strong> </em>
+                    <div class="panel-tools">
+                        <a class="btn btn-xs btn-green" href="">R @Model.OutstandingPOReportInfoList.Sum(f => f.OutstandingPOTotalCost).ToString("#0.00")</a>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+
+                    <table class="table table-striped table-bordered table-hover table-full-width" id="sample_11">
+                        <thead>
+                            <tr>
+                                <th>Supplier Name</th>
+                                <th>Quantity</th>
+                                <th>Cost Per Unit</th>
+                                <th>Total Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OutstandingPOReportInfoList)
+                            {
+                                <tr>
+                                    <td>@item.OutstandingPOSupplierName</td>
+                                    <td>@item.OutstandingPOQuantity</td>
+                                    <td>@item.OutstandingPOCostPerUnit</td>
+                                    <td>@item.OutstandingPOTotalCost</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i></i><em><strong>No records</strong> </em>
+            </div>
+        </div>
+    }
+</div>
+    </div>

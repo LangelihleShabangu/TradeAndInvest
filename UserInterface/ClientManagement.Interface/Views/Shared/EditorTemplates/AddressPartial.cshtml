@@ -1,0 +1,46 @@
+﻿@model ClientManagement.DomainModel.AddressModel
+@{
+    ViewBag.Breadcramb = "Address";
+}
+
+    @Html.HiddenFor(model => model.AddressId)
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label">
+                Address <span class="symbol required"></span>
+            </label>
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(x => x.AddressLine1, new { @class = "form-control", @placeholder = "Address" })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label">
+                AddressLine 2 <span class="symbol required"></span>
+            </label>
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(x => x.AddressLine2, new { @class = "form-control", @placeholder = "Address Line2" })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label">
+                Town <span class="symbol required"></span>
+            </label>
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(x => x.AddressLine3, new { @class = "form-control", @placeholder = "Town" })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label">
+                Code <span class="symbol required"></span>
+            </label>
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(x => x.AddressLine4, new { @class = "form-control", @placeholder = "Area Code" })
+        </div>
+    </div>

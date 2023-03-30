@@ -1,0 +1,99 @@
+﻿@model ClientManagement.DomainModel.ClientDocumentModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="divClientDocumentUpload">
+
+    @using (Html.BeginForm("UploadFiles", "Client", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(model => model.ClientId)
+
+        @Html.HiddenFor(model => model.ClientAccountRegistrationId)
+
+        <div class="panel-heading">
+            Client Document Capture
+        </div>
+        <div class="tab-content">
+            <div class="panel-body">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Document Name :
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = "Name",  @required = "required" })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Document Type :
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.DropDownList("DocumentTypeId", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetDocumentTypeDataInfo(Model.DocumentTypeList), "Value", "Text", Model.DocumentTypeId), new { @class = "form-control search-select", @id = "PersonalDetails_GenderId_" })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Upload file :
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <input type="file" name="file" id="file" required = "required" />                        
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <button class="btn btn-sm btn-success" type="submit">Save</button>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="tabbable">       
+            <div class="tab-pane in active">
+                <div class="panel-heading">
+                    Client Document Details
+                </div>
+                <div class="tab-content">
+                    <div class="panel-body">
+                        <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Document Type</th>
+                                    <th>Created Date</th> 
+                                    <th>Action</th>                                  
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.ClientDocumentList)
+                                {
+                                    <tr>
+                                        <td>@item.Name.ToString()</td>
+                                        <td>@item.DocumentType</td>
+                                        <td>@item.CreatedDate.ToString("dd MMMM yyyy")</td> 
+                                        <td>
+                                            @using (Html.BeginForm("DownloadDocuments", "Client", new { ClientDocumentId = item.ClientDocumentId }))
+                                            {
+                                                <input type="submit" name="submitbtn" class="btn btn-xs btn-primary tooltips" data-placement="top" data-original-title="Download Documents" value="Download Document" />
+                                            }
+                                        </td>                                     
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>            
+        </div>
+    </div>
+</div>
+

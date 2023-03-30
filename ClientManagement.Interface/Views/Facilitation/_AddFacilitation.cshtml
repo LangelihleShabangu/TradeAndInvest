@@ -1,0 +1,371 @@
+﻿@model ClientManagement.DomainModel.FacilitationModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";    
+}
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
+
+<script src="@Url.Content("https://code.jquery.com/jquery-3.3.1.js")"></script>
+<script src="@Url.Content("https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js")"></script>
+
+
+<!-- begin:: Content -->
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+    <div class="kt-portlet__head-label">
+        <h3 class="kt-portlet__head-title">Project Facilitation Information</h3>
+    </div>
+    </div>
+	<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+	<div class="kt-portlet">
+		<div class="kt-portlet__body kt-portlet__body--fit">
+			<div class="kt-grid kt-grid--desktop-xl kt-grid--ver-desktop-xl kt-wizard-v1 kt-wizard-v1--extend" id="kt_wizard_v4" data-ktwizard-state="step-first">
+				<div class="kt-grid__item kt-wizard-v1__aside">
+
+					<!--begin: Form Wizard Nav -->
+					<div class="kt-wizard-v1__nav">
+
+						<!--doc: Remove "kt-wizard-v1__nav-items--clickable" class and also set 'clickableSteps: false' in the JS init to disable manually clicking step titles -->
+						<div class="kt-wizard-v1__nav-items kt-wizard-v1__nav-items--clickable">
+							<div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" data-ktwizard-state="current">
+								<span>1</span>
+							</div>
+							<div class="kt-wizard-v1__nav-item" data-ktwizard-type="step">
+								<span>2</span>
+							</div>
+							<div class="kt-wizard-v1__nav-item" data-ktwizard-type="step">
+								<span>3</span>
+							</div>
+							<div class="kt-wizard-v1__nav-item" data-ktwizard-type="step">
+								<span>4</span>
+							</div>
+						</div>
+						<div class="kt-wizard-v1__nav-details">
+							<div class="kt-wizard-v1__nav-item-wrapper" data-ktwizard-type="step-info" data-ktwizard-state="current">
+								<div class="kt-wizard-v1__nav-item-title">
+									Project Facilitation Details
+								</div>
+								<div class="kt-wizard-v1__nav-item-desc">
+									To start off, please enter your Project Name, Description and Project Challanges and Constraints.
+									<img src="~/Newassets/media/wizard/undraw_checklist_7q37.svg" alt="image" class="kt-wizard-v1__nav-image" />
+								</div>
+							</div>
+							<div class="kt-wizard-v1__nav-item-wrapper" data-ktwizard-type="step-info">
+								<div class="kt-wizard-v1__nav-item-title">
+									Setup Your Facilitation Details
+								</div>
+								<div class="kt-wizard-v1__nav-item-desc">
+									Please enter Project Status, Project Expectations, Departments and Future Plans.
+									<img src="~/Newassets/media/wizard/undraw_resume_folder_2_arse.svg" alt="image" class="kt-wizard-v1__nav-image" />
+								</div>
+							</div>
+							<div class="kt-wizard-v1__nav-item-wrapper" data-ktwizard-type="step-info">
+								<div class="kt-wizard-v1__nav-item-title">
+									Setup Your Investment Values and Project Manager
+								</div>
+								<div class="kt-wizard-v1__nav-item-desc">
+									Please ensure your Investment Values and Project Manager details are up-to-date and accurate for us to server you better.
+									<img src="~/Newassets/media/wizard/undraw_live_collaboration_2r4y.svg" alt="image" class="kt-wizard-v1__nav-image" />
+								</div>
+							</div>
+							<div class="kt-wizard-v1__nav-item-wrapper" data-ktwizard-type="step-info">
+								<div class="kt-wizard-v1__nav-item-title">
+									Confirm Your Settings
+								</div>
+								<div class="kt-wizard-v1__nav-item-desc">
+									Please read our <a href="javascript:;">Terms and Conditions</a> and check to agree before you can complete your registration.
+									<img src="~/Newassets/media/wizard/undraw_hiring_cyhs.svg" alt="image" class="kt-wizard-v1__nav-image" />
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--end: Form Wizard Nav -->
+				</div>
+				<div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
+
+					<!--begin: Form Wizard Form-->
+					<form class="kt-form" id="kt_form">
+
+						<!--begin: Form Wizard Step 1-->
+						<div class="kt-wizard-v1__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
+							<div class="kt-heading kt-heading--md">Setup Your Facilitation Details</div>
+							<div class="kt-separator kt-separator--height-xs"></div>
+							<div class="kt-form__section kt-form__section--first">
+								<div class="form-group">
+									<label>Project Name<span style="color:red">*</span></label>																	
+                                    @Html.TextBoxFor(x => x.ProjectName ,new { @id = "ProjectName1", @class = "form-control", @placeholder = "Project Name", @required = "required" })     
+									<span class="form-text text-muted">Please enter your project name</span>
+								</div>
+								<div class="form-group">
+									<label>Project Description<span style="color:red">*</span></label>
+									@Html.TextBoxFor(x => x.ProjectDescription, new { @id = "ProjectDescription1", @class = "form-control", @placeholder = "Project Description", @required = "required" })
+																	
+								</div>
+                                <div class="form-group">
+									<label>Project Challanges and Constraints<span style="color:red">*</span></label>
+									@Html.TextAreaFor(x => x.ProjectChallangesConstraints,10,10, new { @id = "ProjectChallangesConstraints1", @class = "form-control", @placeholder = " Project Challanges and Constraints", @required = "required" })
+								</div>  
+
+                               @* <div class="kt-heading kt-heading--md">Facilitation Request</div>
+
+								<div class="form-group">
+									<label>What do you need assistance on?<span style="color:red">*</span></label>
+                                    @Html.DropDownList("NeededAssistance", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetNeededAssistance(), "Value", "Text", Model.NeededAssistance), new { @class = "form-control kt_selectpicker",  data_show_subtext="true", data_live_search="true" })									
+								</div>                                                               
+                                                                
+								<div class="form-group">
+									<label>Comments / Notes<span style="color:red">*</span></label>
+                                    @Html.TextAreaFor(x => x.Comments,10,10, new { @id = "Comments", @class = "form-control", @placeholder = "Comments", @required = "required" })
+								</div>		*@						
+
+							</div>
+						</div>
+
+						<!--end: Form Wizard Step 1-->
+
+						<!--begin: Form Wizard Step 2-->
+						<div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+							<div class="kt-heading kt-heading--md">Setup Your Facilitation Details Cont...</div>
+							<div class="kt-separator kt-separator--height-sm"></div>
+							<div class="kt-form__section kt-form__section--first">
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Project Status<span style="color:red">*</span></label>
+											@Html.TextBoxFor(x => x.ProjectStatus, new { @id = "ProjectStatus1", @class = "form-control", @placeholder = "Project Status", @required = "required" })
+										</div>
+									</div>
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Project Expectations<span style="color:red">*</span></label>
+											@Html.TextAreaFor(x => x.Expectations,10,20, new { @id = "Expectations1", @class = "form-control", @placeholder = " Expectations", @required = "required" })
+										</div>
+									</div>
+
+                                    <div class="col-lg-12">
+										<div class="form-group">
+											<label>Relevant Departments<span style="color:red">*</span></label>
+                                            @Html.TextAreaFor(x => x.RelevantDepartments,10,20, new { @id = "RelevantDepartments1", @class = "form-control", @placeholder = "RelevantDepartments", @required = "required" })
+										</div>
+									</div>
+
+                                        <div class="col-lg-12">
+										<div class="form-group">
+											<label>Future Plans<span style="color:red">*</span></label>
+                                            @Html.TextAreaFor(x => x.FuturePlans,10,20, new { @id = "FuturePlans1", @class = "form-control", @placeholder = "Future Plans", @required = "required" })
+										</div>
+									</div>
+								</div>
+																
+							</div>
+						</div>
+
+						<!--end: Form Wizard Step 2-->
+
+						<!--begin: Form Wizard Step 3-->
+						<div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+															
+							<div class="kt-form__section kt-form__section--first">
+																
+								<div class="kt-heading kt-heading--md">Investment Values</div>
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label>Investment Value<span style="color:red">*</span></label>
+											@Html.TextBoxFor(x => x.InvestmentValue, new { @id = "InvestmentValue1", @class = "form-control", @placeholder = "Investment Value", @required = "required" })
+										</div>
+                                    </div>
+                                    <div class="col-lg-6">
+										<div class="form-group">
+											<label>Jobs Opportunities<span style="color:red">*</span></label>
+                                            @Html.TextBoxFor(x => x.JobsOpportunities, new { @id = "JobsOpportunities1", @class = "form-control", @placeholder = "Jobs Opportunities", @required = "required" })
+										</div>
+                                        </div>
+                                    <div class="col-lg-6">
+										<div class="form-group">
+											<label>Temporary<span style="color:red">*</span></label>
+											@Html.TextBoxFor(x => x.Temporary, new { @id = "Temporary1", @class = "form-control", @placeholder = "Temporary", @required = "required" })
+										</div>
+                                        </div>	
+                                    @*  <div class="col-lg-6">
+                                        <div class="form-group">
+											<label>Temporary:</label>
+											@Html.TextBoxFor(x => x.Temporary, new { @id = "Temporary", @class = "form-control", @placeholder = "Temporary", @required = "required" })
+										</div>	
+									</div>*@
+									<div class="col-lg-12">
+                                        <div class="form-group">
+											<label>Permanent<span style="color:red">*</span></label>
+                                            @Html.TextBoxFor(x => x.Permanent, new { @id = "Permanent1", @class = "form-control", @placeholder = "Permanent", @required = "required" })
+										</div>
+									</div>
+
+								</div>
+                                                                
+                                <div class="kt-heading kt-heading--md">Project Manager Details</div>
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Project Manager Name<span style="color:red">*</span></label>
+											@Html.TextBoxFor(x => x.ProjectManagerName , new { @id = "ProjectManagerName1", @class = "form-control", @placeholder = "Project Manager Name", @required = "required" })
+										</div>
+                                    </div>
+                                    <div class="col-lg-6">
+										<div class="form-group">
+											<label>Cell Number<span style="color:red">*</span></label>                                                                            
+                                            @Html.TextBoxFor(x => x.CellNumber, new { @id = "CellNumber1", @class = "form-control", @placeholder = "Cell Number", @required = "required", type = "number" })
+										</div>
+                                    </div>
+                                    <div class="col-lg-6">
+										<div class="form-group">
+											<label>Phone Number<span style="color:red">*</span></label>
+											@Html.TextBoxFor(x => x.PhoneNumber, new { @id = "PhoneNumber1", @class = "form-control", @placeholder = "Phone Number", @required = "required", type = "number" })
+										</div>
+                                    </div>	
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+											<label>Date<span style="color:red">*</span></label>
+                                            @Html.TextBoxFor(x => x.CreatedDate, new { @id = "kt_datepicker_2", @class = "form-control", @placeholder = "InceptionDate", @required = "required" })
+										</div>
+									</div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+											<label>Email<span style="color:red">*</span></label>																			
+                                            @Html.TextBoxFor(x => x.Email, new { @type = "Email", @id = "Email1", @class = "form-control", @placeholder = "Email", @required = "required" })
+										</div>	
+									</div>
+																	
+
+								</div>
+
+							</div>
+						</div>
+
+						<!--end: Form Wizard Step 3-->
+
+						<!--begin: Form Wizard Step 4-->
+						<div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+							<div class="kt-heading kt-heading--md">Confirmation</div>
+							<div class="kt-separator kt-separator--height-sm"></div>
+							<div class="kt-form__section kt-form__section--first">																
+								<div class="form-group">
+									<label class="kt-checkbox">
+										<input type="checkbox" name="accept" value="1"> 
+                                        I hereby declare that the information provided is true and correct. I also understand that any willful dishonesty may render for refusal of this application
+										<span></span>
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<!--end: Form Wizard Step 4-->
+
+						<!--begin: Form Actions -->
+						<div class="kt-form__actions">
+							<div class="btn btn-outline-brand btn-md btn-tall btn-wide btn-bold btn-upper" data-ktwizard-type="action-prev">
+								Previous
+							</div>
+							<div class="btn btn-brand btn-md btn-tall btn-wide btn-bold btn-upper" data-ktwizard-type="action-submit" onclick="SubmitFacilitation1()">
+								Submit
+							</div>
+							<div class="btn btn-brand btn-md btn-tall btn-wide btn-bold btn-upper" data-ktwizard-type="action-next">
+								Next Step
+							</div>
+						</div>
+
+						<!--end: Form Actions -->
+					</form>
+
+					<!--end: Form Wizard Form-->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<!-- End:: Content -->
+
+
+<!--begin:: Toast markup-->
+<div class="toast toast-custom toast-fill fade hide" role="alert" aria-live="assertive" aria-atomic="true" id="kt_toast_1">
+    <div class="toast-header">
+        <i class="toast-icon flaticon2-attention kt-font-danger"></i>
+        <span class="toast-title">Investor Created</span>
+    </div>
+    <div class="toast-body">
+        Successfully Created Facilitation Information
+    </div>
+</div>
+
+<!--end:: Toast markup-->
+
+<script>
+    function SubmitFacilitation1() {
+        var InvestmentValue1 = $("#InvestmentValue1").val().replace(',', '.')        
+        $.ajax({
+            cache: false,
+            type: "GET",
+            data: {               
+                FacilitationId: '@Model.FacilitationId',
+                ProjectName: $("#ProjectName1").val(),
+                ProjectDescription: $("#ProjectDescription1").val(),
+                ProjectChallangesConstraints: $("#ProjectChallangesConstraints1").val(),
+                Expectations: $("#Expectations1").val(),
+                ProjectStatus: $("#ProjectStatus1").val(),
+                RelevantDepartments: $("#RelevantDepartments1").val(),
+                FuturePlans: $("#FuturePlans1").val(),
+                InvestmentValue: InvestmentValue1,
+                JobsOpportunities: $("#JobsOpportunities1").val(),
+                Permanent: $("#Permanent1").val(),
+                Temporary: $("#Temporary1").val(),
+                ProjectManagerName: $("#ProjectManagerName1").val(),
+                CellNumber: $("#CellNumber1").val(),
+                PhoneNumber: $("#PhoneNumber1").val(),
+                Email: $("#Email1").val(),                
+                kt_datepicker_2: $("#kt_datepicker_2").val(),
+            },            
+            url: '@Url.Action("UpdateFacilitation", "Facilitation")',
+            success: function (data) {              
+                window.location.href = '@Url.Action("Index", "Facilitation")';
+            }
+        });
+    }
+
+    function SubmitFacilitation() {
+        $.ajax({
+            cache: false,
+            type: "GET",
+            data: {
+                FacilitationId: $("#FacilitationId").val(),
+                ProjectName: $("#ProjectName").val(),
+                ProjectDescription: $("#ProjectDescription").val(),
+                ProjectChallangesConstraints: $("#ProjectChallangesConstraints").val(),
+                Expectations: $("#Expectations").val(),
+                ProjectStatus: $("#ProjectStatus").val(),
+                RelevantDepartments: $("#RelevantDepartments").val(),
+                FuturePlans: $("#FuturePlans").val(),
+                InvestmentValue: $("#InvestmentValue").val(),
+                JobsOpportunities: $("#JobsOpportunities").val(),
+                Permanent: $("#Permanent").val(),
+                Temporary: $("#Temporary").val(),
+                ProjectManagerName: $("#ProjectManagerName").val(),
+                CellNumber: $("#CellNumber").val(),
+                PhoneNumber: $("#PhoneNumber").val(),
+                Email: $("#Email").val(),
+                kt_datepicker_2: $("#kt_datepicker_2").val(),
+            },
+            url: '@Url.Action("UpdateFacilitation", "Facilitation")',
+            success: function (data) {
+                window.location.href = '@Url.Action("Index", "Facilitation")';
+            }
+        });
+        }
+</script>
+
+
+

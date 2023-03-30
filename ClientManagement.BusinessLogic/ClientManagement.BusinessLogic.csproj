@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AC784489-4A28-4E60-9DFC-AD949F048B77}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ClientManagement.BusinessLogic</RootNamespace>
+    <AssemblyName>ClientManagement.BusinessLogic</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.0.5.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelCoverter, Version=2.66.15.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\ExcelCoverter.dll</HintPath>
+    </Reference>
+    <Reference Include="Finwise.ExcelUtility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\Finwise.ExcelUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="Finwise.Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\Finwise.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Techhill.Framework, Version=1.0.6786.31021, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Techhill.Framework.1.0.6786.31021\lib\net45\Techhill.Framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Techhill.Framework.BusinessProcess, Version=1.1.6786.19322, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Techhill.Framework.BusinessProcess.1.1.6786.19322\lib\net45\Techhill.Framework.BusinessProcess.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Techhill.Framework.DataContext, Version=1.0.6785.15178, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Techhill.Framework.DataContext.1.0.6785.15178\lib\net45\Techhill.Framework.DataContext.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Techhill.Framework.DomainTypes, Version=1.1.6866.9798, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Techhill.Framework.DomainTypes.1.1.6866.9798\lib\net45\Techhill.Framework.DomainTypes.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddressLogic.cs" />
+    <Compile Include="AdminLogic.cs" />
+    <Compile Include="AreaModel.cs" />
+    <Compile Include="AssessmentModel.cs" />
+    <Compile Include="ContactInformationLogic.cs" />
+    <Compile Include="DocumentsLogic.cs" />
+    <Compile Include="Dashboard\DashboardData.cs" />
+    <Compile Include="GlobalAmin.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubscriptionsModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClientManagement.DataObject\ClientManagement.DataObject.csproj">
+      <Project>{a7b79791-a9ce-4ed4-9faa-e50224af4886}</Project>
+      <Name>ClientManagement.DataObject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClientManagement.DomainModel\ClientManagement.DomainModel.csproj">
+      <Project>{4af3f872-b3ee-4c7f-a73f-74b1c59478e9}</Project>
+      <Name>ClientManagement.DomainModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClientManagement.ServiceDetails\ClientManagement.ServiceDetails.csproj">
+      <Project>{e59007a9-6270-4ea9-9dbf-253aa50d7071}</Project>
+      <Name>ClientManagement.ServiceDetails</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Libs\EPPlus.dll" />
+    <Content Include="Libs\ExcelCoverter.dll" />
+    <Content Include="Libs\Finwise.ExcelUtility.dll" />
+    <Content Include="Libs\Finwise.Utilities.dll" />
+    <Content Include="Libs\itextsharp.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,405 @@
+﻿@model ClientManagement.DomainModel.DashBoard.DashBoardDomainModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Breadcramb = "Dashboard";
+    var total = @Model.TotalInvoice - @Model.TotalExpense;
+}
+<script src="~/Scripts/jquery-1.8.3.js"></script>
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        init();
+        init2();
+        widgetTechnologiesChart2();
+    });
+
+    function init2() {
+        var jsonData = $.ajax({
+            url: '@Html.Raw(@Url.Action("DynamicReport01", "Dashboard"))',
+            dataType: 'JSON',
+            async: false
+        }).responseText;
+
+        var jsonDataInfo = $.ajax({
+            url: '@Html.Raw(@Url.Action("DynamicReport011", "Dashboard"))',
+            dataType: 'JSON',
+            async: false
+        }).responseText;
+
+        jsonData = jsonData.replace("[[", "");
+        jsonData = jsonData.replace("]]", "");
+        jsonData = jsonData.replace(/ /g, "_");
+        jsonData = jsonData.replace(/"/g, "");
+
+        jsonDataInfo = jsonDataInfo.replace("[[", "");
+        jsonDataInfo = jsonDataInfo.replace("]]", "");
+        jsonDataInfo = jsonDataInfo.replace(/ /g, "_");
+        jsonDataInfo = jsonDataInfo.replace(/"/g, "");
+
+        new Chart(document.getElementById("bar-charts"), {
+            type: 'bar',
+            data: {
+                labels: jsonData.split(','),
+                datasets: [
+                  {
+                      label: "Total (Quantity)",
+                      backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#FFD700", "#B8860B", "#9ACD32", "#7CFC00", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD"],
+                      data: jsonDataInfo.split(',')
+                  }
+                ]
+            },
+            options: {
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: ''
+                }
+            }
+        });
+    }
+
+    function init() {
+        var jsonData = $.ajax({
+            url: '@Html.Raw(@Url.Action("DynamicReport01", "Dashboard"))',
+            dataType: 'JSON',
+            async: false
+        }).responseText;
+
+        var jsonDataInfo = $.ajax({
+            url: '@Html.Raw(@Url.Action("DynamicReport011", "Dashboard"))',
+            dataType: 'JSON',
+            async: false
+        }).responseText;
+
+        jsonData = jsonData.replace("[[", "");
+        jsonData = jsonData.replace("]]", "");
+        jsonData = jsonData.replace(/ /g, "_");
+        jsonData = jsonData.replace(/"/g, "");
+
+        jsonDataInfo = jsonDataInfo.replace("[[", "");
+        jsonDataInfo = jsonDataInfo.replace("]]", "");
+        jsonDataInfo = jsonDataInfo.replace(/ /g, "_");
+        jsonDataInfo = jsonDataInfo.replace(/"/g, "");
+
+        new Chart(document.getElementById("bar-chart"), {
+            type: 'bar',
+            data: {
+                labels: jsonData.split(','),
+                datasets: [
+                  {
+                      label: "Total (Quantity)",
+                      backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#FFD700", "#B8860B", "#9ACD32", "#7CFC00", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD", "#7FFF00", "#ADFF2F", "#20B2AA", "#87CEEB", "#87CEFA", "#000080", "#00008B", "#0000CD"],
+                      data: jsonDataInfo.split(',')
+                  }
+                ]
+            },
+            options: {
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: ''
+                }
+            }
+        });
+    }
+</script>
+
+
+<script>
+
+    var widgetTechnologiesChart2 = function () {
+        if ($('#kt_widget_technologies_chart_Local').length == 0) {
+            return;
+        }
+
+        var randomScalingFactor = function () {
+            return Math.round(Math.random() * 100);
+        };
+
+        var config = {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [
+                        35, 30, 35
+                    ],
+                    backgroundColor: [
+                        KTApp.getStateColor('warning'),
+                        KTApp.getStateColor('brand'),
+                        KTApp.getStateColor('success')
+                    ]
+                }],
+                labels: [
+                    'CSS',
+                    'Angular',
+                    'HTML'
+                ]
+            },
+            options: {
+                cutoutPercentage: 75,
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false,
+                    position: 'top',
+                },
+                title: {
+                    display: false,
+                    text: 'Technology'
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                },
+                tooltips: {
+                    enabled: true,
+                    intersect: false,
+                    mode: 'nearest',
+                    bodySpacing: 5,
+                    yPadding: 10,
+                    xPadding: 10,
+                    caretPadding: 0,
+                    displayColors: false,
+                    backgroundColor: KTApp.getStateColor('brand'),
+                    titleFontColor: '#ffffff',
+                    cornerRadius: 4,
+                    footerSpacing: 0,
+                    titleSpacing: 0
+                }
+            }
+        };
+
+        var ctx = document.getElementById('kt_widget_technologies_chart_Local').getContext('2d');
+        var myDoughnut = new Chart(ctx, config);
+    }
+
+</script>
+
+<!-- begin row -->
+@if (Model.Notes != "Investor")
+{
+    <div class="row">
+
+        <div class="col-lg-2 col-xl-6 order-lg-1 order-xl-1">
+            <!--begin::Portlet-->
+            <div class="kt-portlet kt-portlet--height-fluid">
+                <!--begin::Portlet-->
+                <div class="kt-portlet">
+                    <div class="kt-portlet__body">
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <div class="card-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Trade
+                                    </div>
+                                </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            The Trade & Investment Unit provides export development training and workshops to small businesses in order to equip them to be export-ready in order to exploit global opportunities. These trainings are undertaken quarterly in collaboration with the Department of Trade and Industry (DTI), and the Gauteng Growth & Development Agency (GGDA). The City’s trade performance has been showing significant growth over the past 5 years, reaching a trade surplus of R53 billion in 2017 (IHS Markit, 2019).
+                                        </div>
+                                        <div class="row">
+                                            <br />
+                                            The City of Johannesburg has the largest amount of international trade compared to other municipalities in Gauteng (when aggregating imports and exports, in absolute terms) with a total of R850 billion, and remains one of the largest in the country (GGDA). The Mining sector, Metals and Machinery are the largest contributors to the City’s exports (HIS Markit, Rex, 2019).
+                                        </div>
+                                        @*<div class="row">
+                                            <br />
+                                            The Investment Prioritisation Committee was set up to facilitate issues raised by investors and works with other city departments to resolve matters pertaining to large investments in the City. Its objective is to reduce turnaround times, thereby reducing the cost of business, attracting investment, and creating jobs.
+                                        </div>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Portlet-->
+        </div>
+
+        <div class="col-lg-2 col-xl-6 order-lg-1 order-xl-1">
+            <!--begin::Portlet-->
+            <div class="kt-portlet kt-portlet--height-fluid">
+                <img src="~/Newassets/media/company-logos/Graph1.JPG" class="kt-widget-21__bg" />
+            </div>
+            <!--end::Portlet-->
+        </div>
+
+        <div class="col-lg-2 col-xl-6 order-lg-1 order-xl-1">
+            <!--begin::Portlet-->
+            <div class="kt-portlet kt-portlet--height-fluid">
+                <img src="~/Newassets/media/company-logos/Graph3.JPG" class="kt-widget-21__bg" />
+            </div>
+            <!--end::Portlet-->
+        </div>
+
+        <div class="col-lg-2 col-xl-6 order-lg-1 order-xl-1">
+            <!--begin::Portlet-->
+            <div class="kt-portlet kt-portlet--height-fluid">
+                <img src="~/Newassets/media/company-logos/Graph4.JPG" class="kt-widget-21__bg" />
+            </div>
+            <!--end::Portlet-->
+        </div>
+
+        <!--end::Portlet-->
+    </div>
+}
+
+@if (Model.Notes == "Investor")
+{
+    <div class="kt-content kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+
+        <!-- begin:: Content -->
+
+            <div class="row">
+                <div class="col-xl-12">
+
+                    <!--begin::Portlet-->
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__body">
+                            <div class="accordion" id="accordionExample">
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                        <div class="card-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            How to Invest
+                                        </div>
+                                    </div>
+                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                Connecting you and your business
+                                                For inward investment into the City, the DED’s Trade & Investment Promotion Directorate serves to connect your expanding business to our dynamic City. We’ve got the sector knowledge, the business information and the connections you need. The unit ensures you can get going quickly and easily to benefit as soon as possible from investing in Joburg, whether you’re a business start-up, a logistics hub or utilising our City as a base for your African headquarters, as a springboard into the rest of the continent.
+                                            </div>
+                                            <div class="row">
+                                                <br />
+                                                We’ll help you find the exact right location and real estate, be it cost competitive land and premises in our urban development zone in the Inner City or state-of-the art offices in the sophisticated business centre of Sandton, home to the country’s securities exchange, our investment, legal and consulting sectors and many multinational branch offices. Large scale, job-creating investment projects are now earmarked for fast-track decision-making and processing.
+                                            </div>
+                                            <div class="row">
+                                                <br />
+                                                The Investment Prioritisation Committee was set up to facilitate issues raised by investors and works with other city departments to resolve matters pertaining to large investments in the City. Its objective is to reduce turnaround times, thereby reducing the cost of business, attracting investment, and creating jobs.
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-6">
+                    <!--begin::Portlet-->
+                    <div class="kt-portlet">
+                        <img src="~/Newassets/media/blog/005.jpg" />
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <!--begin::Portlet-->
+                    <div class="kt-portlet">
+                        <img src="~/Newassets/media/blog/006.jpg" />
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="row">
+                <div class="col-xl-12">
+
+                    <!--begin::Portlet-->
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__body">
+                            <div class="accordion" id="accordionExample">
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                        <div class="card-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            Trade & Investment Promotion
+                                        </div>
+                                    </div>
+                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            The City’s Trade & Investment Unit within the Department of Economic Development is responsible for advancing Joburg as a preferred investment destination, promoting investment opportunities to domestic and foreign investors, facilitating trade by assisting local companies to access global markets, and providing an efficient investor facilitation and aftercare service.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="headingTwo">
+                                        <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            Connecting you and your business
+                                        </div>
+                                    </div>
+                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            The Trade & Investment Team have established strong partnerships with City departments and entities in order to ensure a seamless investor experience. We have the sector expertise, market intelligence, and strategic partnerships that will ensure your investment receives all the approvals needed. The Team will ensure that you can start your operations and benefit immediately from investing in Joburg, whether you’re a start-up, experienced business using our City as your African headquarters, or utilising the City as a launch pad to the rest of the African continent.
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="kt-portlet__body">
+                                    <img src="~/Newassets/media/blog/JHB.png" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ 
+
+    </div>
+}
+
+<script>
+    function LogisticsOrderItemInformation(OrderId) {
+    $('#LogisticsOrderItemDetailsView').load('@Url.Action("AddLogisticsItem", "Order")' + '?OrderId=' + OrderId, function () {
+        $('#Logisticsuserinfodetails').modal('show');
+        });
+    }
+    function ClosePopup() {
+        $('#LogisticsOrderItemDetailsView').modal('hide');
+    }
+
+    function AddPartialPaymentInformation(OrderId) {
+    $('#PaymentInformation').load('@Url.Action("CapturePaymentInformation", "Order")' + '?OrderId=' + OrderId, function () {
+        $('#newPaymentInformationData').modal('show');
+            $('.date-picker').datepicker({
+            autoclose: true
+            });
+        });
+    }
+</script>
+
+<div id="LogisticsOrderItemDetailsView" class="modal container fade" tabindex="-1" data-width="100%" style="display: none;">
+    <div class="modal-dialog" style="width: 100%">
+        <div class="modal-content" style="width: 100%">
+            <div id="LogisticsOrderItemDetailsView" class="modal-body" style="width: 100%">
+                <div id="Logisticsuserinfodetails"></div>
+            </div>
+            <div class="modal-footer">
+                <button aria-hidden="true" data-dismiss="modal" class="btn btn-sm btn-default">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="newPaymentInformationData" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true" data-width="100%">
+    <div class="modal-dialog" style="width: 100%">
+        <div class="modal-content">
+            <div id="PaymentInformation" class="modal-body" style="width: 100%">
+                <div id="PaymentInformation"></div>
+            </div>
+            <div class="modal-footer">
+                <button aria-hidden="true" data-dismiss="modal" class="btn btn-sm btn-default">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

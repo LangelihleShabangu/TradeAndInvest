@@ -1,0 +1,74 @@
+﻿@model ClientManagement.DomainModel.ProductReceiptModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    MenuSelected('Product');
+</script>
+<link href="~/Content/StyleSheet.css" rel="stylesheet" />
+
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        <i></i>Product Details
+        <div class="panel-tools">
+            <a class="btn btn-xs btn-green" href="@Url.Action("Index", "Product")">Back</a>
+            <a class="btn btn-xs btn-green" href="@Url.Action("CreateProductReceipt", "ProductReceipt", new { ProductsId = Model.ProductsId })">Create</a>
+        </div>
+    </div>
+</div>
+<div class="Headingtest">
+    <em>Product : @Model.Product </em>
+</div>
+
+
+
+    <div class="panel-body" style="border: solid; border-color: black">
+        <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+            <thead>
+                <tr>
+                    <th>Material</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ProductReceiptList)
+                {
+                    <tr>
+                        <td>@item.Material</td>
+                        <td>@item.Quantity</td>                        
+                        <td>
+                            @using (Html.BeginForm("CreateEditProductReceipt", "ProductReceipt", new { ProductsRecipeId = item.ProductsRecipeId }))
+                            {
+                                <input type="submit" name="submitbtn" class="btn btn-xs btn-teal tooltips" data-placement="top" data-original-title="Edit" value="Edit" />
+
+                                <a href="#@item.ProductReceiptsId" class="btn btn-xs btn-red" data-toggle="modal">Delete</a>
+
+                                <div class="modal fade" id="@item.ProductReceiptsId" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div id="users" class="modal-body">
+                                                <p>Are you sure you want to delete this item?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button aria-hidden="true" data-dismiss="modal" class="btn btn-sm btn-default">
+                                                    Close
+                                                </button>
+                                                <input type="submit" name="submitbtn" class="btn btn-red tooltips" data-placement="top" data-original-title="Remove" value="Remove" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+@*</div>*@
+
+
+

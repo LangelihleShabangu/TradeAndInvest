@@ -1,0 +1,39 @@
+﻿@model ClientManagement.DomainModel.ClientModel
+@{
+    ViewBag.Breadcramb = "ContactInformation";
+}
+
+    @Html.HiddenFor(model => model.ClientId)
+
+    <div class="tab-content">
+
+        <div class="panel-body">            
+
+            <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Select a District :
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.DropDownList("CompanyId", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetCompanyDataInfo(Model.CompanyList), "Value", "Text", Model.ContactInformationDetails.CompanyId), new { @class = "form-control search-select" })
+                    </div>
+                </div>
+
+                @*<div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Ownership Type :
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.DropDownList("OwnershipTypeId", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetOwnershipTypeDataInfo(Model.OwnershipTypeList), "Value", "Text", Model.OwnershipTypeId), new { @class = "form-control search-select" })
+                    </div>
+                </div>*@                
+
+            </div>
+        </div>
+
+
+
+

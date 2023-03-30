@@ -1,0 +1,21 @@
+﻿@model ClientManagement.DomainModel.ClientModel
+@{    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("CreateClient", "Client", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.ClientId)
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <i></i>Personal Details
+        <div class="panel-tools">
+            <button class="btn btn-sm btn-success" type="submit" value="Upload">Save</button>
+        </div>
+        </div>
+        <div class="panel-body">
+            @Html.EditorFor(model => model, "ContactInformationDetailsPartial")
+        </div>
+    </div>
+}

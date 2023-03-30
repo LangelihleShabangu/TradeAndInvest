@@ -1,0 +1,15 @@
+﻿@model ClientManagement.DomainModel.ClientModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    MenuSelected('Information');
+</script>
+
+@using (Html.BeginForm("CreateClient", "Client", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.EditorFor(model => model, "ContactInformationDetailsPartial")
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })    
+}

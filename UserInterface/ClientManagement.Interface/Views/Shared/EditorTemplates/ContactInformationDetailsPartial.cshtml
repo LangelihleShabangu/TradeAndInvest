@@ -1,0 +1,219 @@
+﻿@model ClientManagement.DomainModel.ClientModel
+
+@{
+    var txtidnumber = "PersonalDetails_IdNumber_";
+    var txtidnumberWarning = "PersonalDetailsWarning_IdNumber_";
+    var txtBirthDate = "PersonalDetails_BirthDate_";
+    var ddlGender = "PersonalDetails_GenderId_";
+}
+
+
+<div class="panel panel-default">
+
+    @Html.HiddenFor(model => model.ClientId)    
+    @Html.HiddenFor(model => model.ContactInformationId)
+
+    @Html.HiddenFor(model => model.ContactInformationDetails.ContactInformationId)
+    @Html.HiddenFor(model => model.AddressDetails.AddressId)
+
+ <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <div class="panel-heading-btn">
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>                
+
+                <button name="submitbtn" class="btn btn-sm btn-success" type="submit">Save</button>
+            </div>
+            <h4 class="panel-title">Personal Details</h4>
+        </div>       
+
+   <div class="panel-body">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Branch :
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.DropDownList("CompanyId", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetCompanyDataInfo(Model.CompanyList), "Value", "Text", Model.CompanyId), new { @class="form-control selectpicker" })
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Gender  :
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.DropDownList("GenderId", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetGenderDataInfo(Model.GenderList), "Value", "Text", Model.ContactInformationDetails.GenderId), new { @class = "form-control search-select", @id = "PersonalDetails_GenderId_" })
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Surname :  <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.ContactInformationDetails.Surname, new { @class = "form-control", @placeholder = "Surname " , @required = "required"})
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Id Number :  <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.ContactInformationDetails.IdNumber, new { @id = "PersonalDetails_IdNumber_", @class = "form-control", @onblur = "OnIDNumberChange();", @onkeydown = "OnIDNumberChange();", @placeholder = "Id Number" ,type="number" })
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">
+                            FirstName :  <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.ContactInformationDetails.FirstName, new { @class = "form-control", @placeholder = "FirstName " , @required = "required"})
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Passport Number :  <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.ContactInformationDetails.PassportNumber, new { @class = "form-control", @placeholder = "Passport Number " })
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Known As :  <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.ContactInformationDetails.KnownAs, new { @class = "form-control", @placeholder = "Known As ", @required = "required" })
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">
+                            BirthDate :  <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.ContactInformationDetails.BirthDate, new { @class = "form-control date-picker", @placeholder = "BirthDate ", @id = "PersonalDetails_BirthDate_" })
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Cell Number :  <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.ContactInformationDetails.CellNumber, new { @class = "form-control", @placeholder = "Cell Number ",type="number", @required = "required" })
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Email Addreess :  <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.ContactInformationDetails.EmailAddress, new { @class = "form-control", @placeholder = " Email Address " , @required = "required"})
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Phone Number :  <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.ContactInformationDetails.PhoneNumber, new { @class = "form-control", @placeholder = "Phone Number " ,type="number" , @required = "required"})
+                    </div>
+                </div>               
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-6">
+                     <div class="panel panel-inverse">
+                            <div class="panel-heading">                                
+                                <h4 class="panel-title">Address</h4>
+                            </div>       
+
+                       <div class="panel-body">
+                            @Html.EditorFor(model => model.AddressDetails, "AddressPartial")
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="panel panel-inverse">
+        <div class="panel-heading">            
+            <h4 class="panel-title">Banking Details</h4>
+        </div>       
+
+   <div class="panel-body">
+                            @Html.EditorFor(model => model.BankingDetailsInfo, "BankingDetailsPartial")
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    function OnIDNumberChange() {
+        var idNumber = $("#@txtidnumber").val();
+
+        if (idNumber.length == 13) {
+            var tempDate = new Date(idNumber.substring(0, 2), idNumber.substring(2, 4) - 1, idNumber.substring(4, 6));
+            var curr_date = tempDate.getDate();
+            var curr_month = tempDate.getMonth() + 1;
+            var curr_year = tempDate.getFullYear();
+            newtemp = (curr_year + "-" + curr_month + "-" + curr_date);
+            $("#@txtBirthDate").val("");
+            $("#@txtBirthDate").val(newtemp);
+
+            var genderCode = idNumber.substring(6, 10);
+            var gender = parseInt(genderCode) < 5000 ? $("#@ddlGender").val(2) : $("#@ddlGender").val(3);
+        }
+
+        if (idNumber.length != 13)
+            $("#@txtidnumberWarning").text('Warning! ID is ' + idNumber.length + ' digits long!');
+        else
+            $("#@txtidnumberWarning").text('');
+    }
+</script>
+
+
+
+
+
+

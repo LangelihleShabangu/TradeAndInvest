@@ -1,0 +1,56 @@
+﻿@model ClientManagement.DomainModel.ClientModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";    
+}
+
+<link href="~/Content/StyleSheet.css" rel="stylesheet" />
+
+<div class="panel-body">
+    <div class="Headingtest" style="align-items:center">
+        <em><strong>&nbsp;&nbsp; Loan Information Report </strong></em>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tab-content">
+                <div class="panel-body">
+                    <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+                        <thead>
+                            <tr>
+                                <th>Start Date</th>
+                                <th>Client </th>
+                                <th>Total Paid</th>
+                                <th>Instalment Amount</th>
+                                <th>Loan Amount</th>
+                                <th>Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ClientAccountRegistrationList)
+                            {
+                                var Amount = @item.Amount.ToString("c", ClientManagement.DomainModel.Configuration.CultureInfoSettings.GetZACulture().NumberFormat);
+                                var Instalment = @item.Instalment.ToString("c", ClientManagement.DomainModel.Configuration.CultureInfoSettings.GetZACulture().NumberFormat);
+                                var Balance = @item.Balance.ToString("c", ClientManagement.DomainModel.Configuration.CultureInfoSettings.GetZACulture().NumberFormat);
+                                var TotalAmount = @item.TotalAmount.ToString("c", ClientManagement.DomainModel.Configuration.CultureInfoSettings.GetZACulture().NumberFormat);
+                                var Deposit = @item.Deposit.ToString("c", ClientManagement.DomainModel.Configuration.CultureInfoSettings.GetZACulture().NumberFormat);
+                                var TotalCount = @item.TotalCount.ToString();
+
+                                <tr>
+                                    <td>@item.StartPaymentDate.ToString("dd MMMM yyyy")</td>
+                                    <td>@item.Client</td>
+                                    <td>@TotalAmount ( @TotalCount Month/s )</td>
+                                    <td>@Instalment</td>
+                                    <td>@Amount</td>
+                                    <td>@Balance</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

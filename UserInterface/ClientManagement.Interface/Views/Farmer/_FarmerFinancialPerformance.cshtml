@@ -1,0 +1,486 @@
+﻿@model ClientManagement.DomainModel.FarmerModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";    
+}
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<script src="@Url.Content("https://code.jquery.com/jquery-3.3.1.js")"></script>
+<script src="@Url.Content("https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js")"></script>
+
+
+<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+
+    <!--Begin::App-->
+    <div class="kt-grid kt-grid--desktop kt-grid--ver kt-grid--ver-desktop kt-app">
+
+        <!--Begin:: App Aside Mobile Toggle-->
+        <button class="kt-app__aside-close" id="kt_profile_aside_close">
+            <i class="la la-close"></i>
+        </button>
+
+        <!--End:: App Aside Mobile Toggle-->
+
+        <!--Begin:: App Aside-->
+        <div class="kt-grid__item kt-app__toggle kt-app__aside kt-app__aside--sm kt-app__aside--fit" id="kt_profile_aside">
+
+            <!--Begin:: Portlet-->
+            <div class="kt-portlet">
+                <div class="kt-portlet__body">
+                    <div class="kt-widget kt-widget--general-1">
+                        <div class="kt-media kt-media--brand kt-media--md kt-media--circle">
+                            @if (Model.Image == null)
+                            {
+                                <img src="~/Newassets/media/users/default.jpg" alt="image">                                                                               
+                            }
+                            else
+                            {                                    
+                                <img src='@String.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.Image))' />
+                            }
+                        </div>
+                        <div class="kt-widget__wrapper">
+                            <div class="kt-widget__label">
+                                <a href="#" class="kt-widget__title">@Model.FirstName  @Model.Surname
+                                </a>
+                                <span class="kt-widget__desc">Farmer Owner
+                                </span>
+                            </div>
+                            <div class="kt-widget__toolbar kt-widget__toolbar--top-">
+                                <div class="btn-group">
+                                    <div class="dropdown dropdown-inline">
+                                        <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="flaticon-more-1"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-fit dropdown-menu-md dropdown-menu-right">
+
+                                            <!--begin::Nav-->
+                                            <ul class="kt-nav">
+                                                <li class="kt-nav__head">Export Options
+													<i class="flaticon2-information" data-toggle="kt-tooltip" data-placement="right" title="Click to learn more..."></i>
+                                                </li>
+                                                <li class="kt-nav__separator"></li>
+                                                <li class="kt-nav__item">
+                                                    <a href="#" class="kt-nav__link">
+                                                        <i class="kt-nav__link-icon flaticon2-drop"></i>
+                                                        <span class="kt-nav__link-text">Users</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-nav__item">
+                                                    <a href="#" class="kt-nav__link">
+                                                        <i class="kt-nav__link-icon flaticon2-calendar-8"></i>
+                                                        <span class="kt-nav__link-text">Reports</span>
+                                                        <span class="kt-nav__link-badge">
+                                                            <span class="kt-badge kt-badge--danger">9</span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-nav__item">
+                                                    <a href="#" class="kt-nav__link">
+                                                        <i class="kt-nav__link-icon flaticon2-drop"></i>
+                                                        <span class="kt-nav__link-text">Statements</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-nav__item">
+                                                    <a href="#" class="kt-nav__link">
+                                                        <i class="kt-nav__link-icon flaticon2-new-email"></i>
+                                                        <span class="kt-nav__link-text">Customer Support</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-nav__separator"></li>
+                                                <li class="kt-nav__foot">
+                                                    <a class="btn btn-label-brand btn-bold btn-sm" href="#">Proceed</a>
+                                                    <a class="btn btn-clean btn-bold btn-sm" href="#" data-toggle="kt-tooltip" data-placement="right" title="Click to learn more...">Learn more</a>
+                                                </li>
+                                            </ul>
+
+                                            <!--end::Nav-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-portlet__separator"></div>
+                <div class="kt-portlet__body">
+                    <ul class="kt-nav kt-nav--bolder kt-nav--fit-ver kt-nav--v4" role="tablist">
+                        <li class="kt-nav__item  ">
+                            <a class="kt-nav__link active" href="@Url.Action("FarmerPersonalDetails", "Farmer", new { FarmerId = Model.FarmerId })" role="tab">
+                                <span class="kt-nav__link-icon"><i class="flaticon2-user"></i></span>
+                                <span class="kt-nav__link-text">Personal Information</span>
+                            </a>
+                        </li>
+                        <li class="kt-nav__item ">
+                            <a class="kt-nav__link" href="@Url.Action("TradingDetails", "Farmer", new { FarmerbyId = Model.FarmerId })" role="tab">
+                                <span class="kt-nav__link-icon"><i class="flaticon-feed"></i></span>
+                                <span class="kt-nav__link-text">Farm Trading Details</span>
+                            </a>
+                        </li>
+                        <li class="kt-nav__item  ">
+                            <a class="kt-nav__link" href="@Url.Action("FarmerDescriptionResources", "Farmer", new { FarmerId = Model.FarmerId })" role="tab">
+                                <span class="kt-nav__link-icon"><i class="flaticon2-settings"></i></span>
+                                <span class="kt-nav__link-text">Farm Natural Resorces</span>
+                            </a>
+                        </li>
+                        <li class="kt-nav__item  ">
+                            <a class="kt-nav__link" href="@Url.Action("FarmerInfrastucture", "Farmer", new { FarmerId = Model.FarmerId })" role="tab">
+                                <span class="kt-nav__link-icon"><i class="flaticon2-chart2"></i></span>
+                                <span class="kt-nav__link-text">Farmer Infrastructure</span>
+                            </a>
+                        </li>
+                        <li class="kt-nav__item ">
+                            <a class="kt-nav__link" href="@Url.Action("FarmerAsserts", "Farmer", new { FarmerId = Model.FarmerId })" role="tab">
+                                <span class="kt-nav__link-icon"><i class="flaticon2-chart2"></i></span>
+                                <span class="kt-nav__link-text">Farmer Movable Asserts</span>
+                            </a>
+                        </li>
+
+                        <li class="kt-nav__item ">
+                            <a class="kt-nav__link" href="@Url.Action("FarmerSocioEconomic", "Farmer", new { FarmerId = Model.FarmerId })" role="tab">
+                                <span class="kt-nav__link-icon"><i class="flaticon2-chart2"></i></span>
+                                <span class="kt-nav__link-text">Farmer Socio-Economic</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="kt-portlet__separator"></div>
+                <div class="kt-portlet__body">
+                    <ul class="kt-nav kt-nav--bolder kt-nav--fit-ver kt-nav--v4" role="tablist">
+
+                        <li class="kt-nav__item ">
+                            <a class="kt-nav__link" href="@Url.Action("Grants", "Farmer", new { FarmerId = Model.FarmerId })" role="tab" data-toggle="kt-tooltip" data-placement="right" title="DryCrop Information Details">
+                                <span class="kt-nav__link-icon"><i class="flaticon-safe-shield-protection"></i></span>
+                                <span class="kt-nav__link-text">Farmer Grants Funding</span>
+                            </a>
+                        </li>
+
+                        <li class="kt-nav__item">
+                            <a class="kt-nav__link" href="@Url.Action("Livestock", "Farmer", new { FarmerId = Model.FarmerId })" role="tab" data-toggle="kt-tooltip" data-placement="right" title="LiveStock Information Details">
+                                <span class="kt-nav__link-icon"><i class="flaticon2-chart2"></i></span>
+                                <span class="kt-nav__link-text">LiveStock</span>
+                            </a>
+                        </li>
+                         <li class="kt-nav__item">
+                             <a class="kt-nav__link" href="@Url.Action("Vegetable", "Farmer", new { FarmerId = Model.FarmerId })" role="tab" data-toggle="kt-tooltip" data-placement="right" title="Vegetable Information Details">
+                                <span class="kt-nav__link-icon"><i class="flaticon-safe-shield-protection"></i></span>
+                                <span class="kt-nav__link-text">Vegetable</span>
+                            </a>
+                        </li>
+                        <li class="kt-nav__item ">
+                            <a class="kt-nav__link" href="@Url.Action("Fruit", "Farmer", new { FarmerId = Model.FarmerId })" role="tab" data-toggle="kt-tooltip" data-placement="right" title="Fruit Information Details">
+                                <span class="kt-nav__link-icon"><i class="flaticon-safe-shield-protection"></i></span>
+                                <span class="kt-nav__link-text">Fruit</span>
+                            </a>
+                        </li>
+                        <li class="kt-nav__item">
+                            <a class="kt-nav__link" href="@Url.Action("DryCrop", "Farmer", new { FarmerId = Model.FarmerId })" role="tab" data-toggle="kt-tooltip" data-placement="right" title="DryCrop Information Details">
+                                <span class="kt-nav__link-icon"><i class="flaticon-safe-shield-protection"></i></span>
+                                <span class="kt-nav__link-text">DryCrop</span>
+                            </a>
+                        </li>
+                        <li class="kt-nav__item active">
+                            <a class="kt-nav__link" href="@Url.Action("FinancialPerformance", "Farmer", new { FarmerId = Model.FarmerId })" role="tab" data-toggle="kt-tooltip" data-placement="right" title="DryCrop Information Details">
+                                <span class="kt-nav__link-icon"><i class="flaticon-safe-shield-protection"></i></span>
+                                <span class="kt-nav__link-text">Financial Performance</span>
+                            </a>
+                        </li>
+                        
+                        <li class="kt-nav__space"></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--End:: Portlet-->
+
+            <!--Begin:: Portlet-->
+            <div class="kt-portlet kt-portlet--head-noborder">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title  kt-font-danger">Important Update
+                        </h3>
+                    </div>
+                    <div class="kt-portlet__head-toolbar">
+                        <span class="kt-badge kt-badge--bolder kt-badge kt-badge--inline kt-badge--danger">Now</span>
+                    </div>
+                </div>
+                <div class="kt-portlet__body kt-portlet__body--fit-top">
+                    <div class="kt-section kt-section--space-sm">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                    </div>
+                    <div class="kt-section kt-section--last">
+                        <a href="#" class="btn btn-brand btn-sm btn-bold"><i class=""></i>Take Action</a>&nbsp;
+						<a href="#" class="btn btn-clean btn-sm btn-bold">Dismiss</a>
+                    </div>
+                </div>
+            </div>
+
+            <!--End:: Portlet-->
+        </div>
+
+        <!--End:: App Aside-->
+
+        <!-- begin:: Content -->
+        <div class="kt-container  kt-grid__item kt-grid__item--fluid">
+
+            <!--begin::Portlet-->
+            <div class="kt-portlet">
+                <div class="kt-portlet__body kt-portlet__body--fit" style="border: thin">
+                    @*                    <button type="button" class="btn btn-brand btn-bold" onclick="window.print();">Print Financial Performance</button>*@
+                    <button type="button" class="btn btn-outline-brand kt-btn kt-btn--pill" onclick="window.print();">Financial Performance</button>
+                    <div class="kt-invoice-1">
+                        @* <div class="kt-invoice__head" style="background-image: url(https://www.ilimo.co.za/invoice1-bg.png);">
+                            <div class="kt-invoice__container">
+                                <div class="kt-invoice__brand">
+                                    <a href="#" class="kt-invoice__logo">                                       
+                                        <span class="kt-invoice__desc">
+                                            <h3> <span>Financial Performance</span> </h3>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div class="kt-invoice__items">
+                                    <div class="kt-invoice__item">
+                                        <span class="kt-invoice__subtitle">Farmer Details:</span>
+                                        <span class="kt-invoice__desc">
+                                            <span>Farmer : @Model.FirstName  @Model.Surname</span>
+                                            <span>IdNumber : @Model.IdNumber</span>
+                                            <span>Email Address : @Model.Email</span>
+                                            <span>CellNumber : @Model.CellNumber</span>
+                                        </span>
+                                    </div>
+                                    <div class="kt-invoice__item">
+                                        <div class="kt-invoice__info">
+                                            <span class="kt-invoice__subtitle">DATE</span>
+                                            <span class="kt-invoice__text">@System.DateTime.Now.ToString("dd MM yyyy")</span>
+                                        </div>
+                                        <div class="kt-invoice__info">
+                                            <span class="kt-invoice__subtitle">Farmer Number :</span>
+                                            <span class="kt-invoice__text">@Model.FarmerId</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+
+                        <div id="divLoading"></div>
+
+                        <div id="wait" style="display: none; width: 69px; height: 89px; position: absolute; top: 50%; left: 50%; padding: 2px;">
+                                <img src="~/Content/loader.gif" />                              
+                        </div>
+
+                        <div class="kt-portlet__body">
+                            <table id="example" class="table table-striped- table-bordered table-hover table-checkable" border="0" style="width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th>Description - @Model.FirstName @Model.Surname </th>
+                                        <th>Amount</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @using (Html.BeginForm("SaveFinancialPerformance", "Farmer", FormMethod.Post, new { enctype = "multipart/form-data" })) //, new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess", OnFailure = "OnFailure" }))
+                                    {
+                                        @Html.HiddenFor(model => model.FarmerId)
+                                        <tr>
+                                            <td style="vertical-align: middle">Business Revenue</td>
+                                            <td style="vertical-align: middle">@Html.TextBoxFor(x => x.BusinessRevenue, new { @id = "BusinessRevenue", @class = "form-control", @placeholder = "BusinessRevenue", @required = "required" })</td>
+                                            <td style="vertical-align: middle">@Model.BusinessRevenue</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: middle">Production Cost</td>
+                                            <td style="vertical-align: middle">@Html.TextBoxFor(x => x.ProductionCost, new { @id = "ProductionCost", @class = "form-control", @placeholder = "ProductionCost", @required = "required" })</td>
+                                            <td style="vertical-align: middle">@Model.ProductionCost</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: middle">Gross Profit</td>
+                                            <td style="vertical-align: middle">@Html.TextBoxFor(x => x.GrossProfit, new { @id = "GrossProfit", @class = "form-control", @placeholder = "GrossProfit", @disabled = "disabled" })</td>
+                                            <td style="vertical-align: middle">@Model.GrossProfit</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: middle">Gross Profit Total</td>
+                                            <td style="vertical-align: middle">@Html.TextBoxFor(x => x.GrossProfitTotal, new { @id = "GrossProfitTotal", @class = "form-control", @placeholder = "GrossProfitTotal", @required = "required" })</td>
+                                            <td style="vertical-align: middle">@Model.GrossProfitTotal</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: middle">Tax Revenue</td>
+                                            <td style="vertical-align: middle">@Html.TextBoxFor(x => x.Tax, new { @id = "Tax", @class = "form-control", @placeholder = "Tax", @required = "required" })</td>
+                                            <td style="vertical-align: middle">@Model.Tax</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: middle">Interest</td>
+                                            <td style="vertical-align: middle">@Html.TextBoxFor(x => x.Interest, new { @id = "Interest", @class = "form-control", @placeholder = "Interest", @required = "required" })</td>
+                                            <td style="vertical-align: middle">@Model.Interest</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: middle">Depreciation</td>
+                                            <td style="vertical-align: middle">@Html.TextBoxFor(x => x.Depreciation, new { @id = "Depreciation", @class = "form-control", @placeholder = "Depreciation", @required = "required" })</td>
+                                            <td style="vertical-align: middle">@Model.Depreciation</td>
+
+                                        </tr>
+
+                                        <tr>
+                                            <td style="vertical-align: middle">Gross Profit Margin</td>
+                                            <td style="vertical-align: middle">@Html.TextBoxFor(x => x.GrossProfitTotalMargin, new { @id = "GrossProfitTotalMargin", @class = "form-control", @placeholder = "GrossProfitTotalMargin", @disabled = "disabled" })</td>
+                                            <td style="vertical-align: middle">@Model.GrossProfitTotalMargin</td>
+
+                                        </tr>
+
+                                        <tr>
+                                            <td style="vertical-align: middle">Net Profit(before Tax,Interest,Depreciation)</td>
+                                            <td style="vertical-align: middle">@Html.TextBoxFor(x => x.NetProfit, new { @id = "NetProfit", @class = "form-control", @placeholder = "NetProfit", @required = "required" })</td>
+                                            <td style="vertical-align: middle">@Model.NetProfit</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: middle">EBITDA</td>
+                                            <td style="vertical-align: middle">@Html.TextBoxFor(x => x.EBITDA, new { @id = "EBITDA", @class = "form-control", @placeholder = "EBITDA", @required = "required" })</td>
+                                            <td style="vertical-align: middle">@Model.EBITDA</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: middle">EBITDA Margin</td>
+                                            <td style="vertical-align: middle">@Html.TextBoxFor(x => x.EBITDAMargin, new { @id = "EBITDAMargin", @class = "form-control", @placeholder = "EBITDAMargin", @required = "required" })</td>
+                                            <td style="vertical-align: middle">@Model.EBITDAMargin</td>
+
+                                        </tr>
+                                                
+                                        <tr>
+                                            <td>
+                                                <button type="button" type="submit"  class="btn btn-brand btn-bold" onclick="SubmitFinance()">
+                                                     Save Financial Performance
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-bold btn-font-sm btn-upper" id="kt_toast_toggle_1"></button>
+                                               @* <span class="spinner-border text-danger" role="status" aria-hidden="true" style="display: none;"></span>*@
+												
+                                            </td>
+                                            <td>
+                                               @* <span id="wait" class="spinner-border text-danger" role="status" style="display: none;">                                                   
+                                              </span>*@
+                                            </td>
+                                        </tr>
+                                                
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        @*        </div>*@
+
+                        @*  </div>*@
+
+                        @* <div class="kt-invoice__footer">
+                            <div class="kt-invoice__container">
+                                <div class="kt-invoice__bank">
+                                    <div class="kt-invoice__title">BANK TRANSFER</div>
+                                    <div class="kt-invoice__item">
+                                        <span class="kt-invoice__label">Account Name:</span>
+                                        <span class="kt-invoice__value">Barclays UK</span></span>
+														
+                                    </div>
+                                    <div class="kt-invoice__item">
+                                        <span class="kt-invoice__label">Account Number:</span>
+                                        <span class="kt-invoice__value">1234567890934</span></span>
+														
+                                    </div>
+                                    <div class="kt-invoice__item">
+                                        <span class="kt-invoice__label">Code:</span>
+                                        <span class="kt-invoice__value">BARC0032UK</span></span>
+														
+                                    </div>
+                                </div>
+                                <div class="kt-invoice__total">
+                                    <span class="kt-invoice__title">TOTAL AMOUNT</span>
+                                    <span class="kt-invoice__price">$20.600.00</span>
+                                    <span class="kt-invoice__notice">Taxes Included</span>
+                                </div>
+                            </div>
+                        </div>*@
+
+                        @* <div class="kt-invoice__actions">
+                            <div class="kt-invoice__container">                                
+                                <button type="button" class="btn btn-brand btn-bold" onclick="window.print();">Print Financial Performance</button>
+                                <button type="button" class="btn btn-default btn-bold btn-font-sm btn-upper" id="kt_toast_toggle_1" style="visibility:hidden;"></button>
+                            </div>
+                        </div>*@
+
+                    </div>
+                </div>
+            </div>
+
+            <!--end::Portlet-->
+        </div>
+
+        <!-- end:: Content -->
+    </div>
+
+    <!--End::App-->
+</div>
+
+<!--begin:: Toast markup-->
+<div class="toast toast-custom toast-fill fade hide" role="alert" aria-live="assertive" aria-atomic="true" id="kt_toast_1">
+    <div class="toast-header">
+        <i class="toast-icon flaticon2-attention kt-font-danger"></i>
+        <span class="toast-title">Financial Performance Created</span>
+    </div>
+    <div class="toast-body">
+         Successfully Created Financial Performance
+    </div>
+</div>
+
+<!--end:: Toast markup-->
+
+<script type="text/javascript">
+    function OnSuccess(data) {
+        $("#kt_toast_toggle_1").click();
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
+
+<script>
+    function SubmitFinance() {
+        onBegin();
+        $.ajax({
+            cache: false,
+            type: "GET",
+            data: {
+                FinancialPerformanceFarmerId: '@Model.FinancialPerformanceFarmerId',
+                FarmerId: '@Model.FarmerId',
+                BusinessRevenue: $("#BusinessRevenue").val(),
+                ProductionCost: $("#ProductionCost").val(),
+                GrossProfitTotal: $("#GrossProfitTotal").val(),
+                Tax: $("#Tax").val(),
+                Interest: $("#Interest").val(),
+                Depreciation: $("#Depreciation").val(),
+                GrossProfitTotalMargin: $("#GrossProfitTotalMargin").val(),
+                NetProfit: $("#NetProfit").val(),
+                EBITDA: $("#EBITDA").val(),
+                EBITDAMargin: $("#EBITDAMargin").val()
+            },
+            url: '@Url.Action("SaveFinancialPerformance", "Farmer")',
+            success: function (data) {                
+                onComplete();
+                $("#kt_toast_toggle_1").click();
+            }
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    function onBegin() {
+        $("#wait").css("display", "block");
+    }
+    function onComplete() {
+        $("#wait").css("display", "none");
+    }
+</script>

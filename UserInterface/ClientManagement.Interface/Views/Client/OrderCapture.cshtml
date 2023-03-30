@@ -1,0 +1,67 @@
+﻿@model ClientManagement.DomainModel.OrderModel
+
+<script>
+    jQuery(document).ready(function () {
+        Main.init();
+        FormElements.init();
+    });
+</script>
+
+@using (Html.BeginForm("CreateEditOrderData", "Client", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.ClientId)
+
+
+      <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <div class="panel-heading-btn">
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>                
+            </div>
+            <h4 class="panel-title">Invoice Capture</h4>
+        </div>       
+
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label">
+                        Invoice Date   : <span class="symbol required"></span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.OrderDate, new { @class = "form-control date-picker", @placeholder = "Order Date" })
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label">
+                        Status :
+                    </label>
+                </div>
+                <div class="form-group">
+                    @Html.DropDownList("StatusId", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetStatusDataInfo(Model.StatusList), "Value", "Text", Model.StatusId), new { @class="form-control selectpicker" })
+                </div>
+            </div>             
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label">
+                        Item :
+                    </label>
+                </div>
+                <div class="form-group">
+                    @Html.DropDownList("ProductsId", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetProductsDataInfo(Model.ProductInfoList), "Value", "Text", Model.ProductsId), new { @class = "form-control search-select" })
+                </div>
+            </div> 
+            <div class="col-md-12">
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <button class="btn btn-sm btn-success" type="submit">Save</button>
+            </div>
+        </div>
+    </div>
+}
+
+
+

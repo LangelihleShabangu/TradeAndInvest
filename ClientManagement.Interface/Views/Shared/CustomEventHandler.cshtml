@@ -1,0 +1,24 @@
+﻿@model Techhill.Framework.Mvc.Models.ErrorModel
+@{
+    ViewBag.Title = Model.ErrorName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="">
+    <div class="row">
+        <div class="col-middle">
+            <div class="alert alert-danger alert-dismissible fade in">
+                <h2><stron>@Model.ErrorType</stron></h2>
+            </div>
+            <div class="col-md-12">
+                <br /><h4>@Model.ErrorTitle</h4>
+            </div>
+            <div class="col-md-12">
+                <br />@Model.ErrorMessage
+            </div>
+            <div class="col-md-12 jumbotron">
+                <br />@Model.StackTrace
+            </div>
+        </div>
+    </div>
+</div>

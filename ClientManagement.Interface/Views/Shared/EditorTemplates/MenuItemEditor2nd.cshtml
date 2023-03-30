@@ -1,0 +1,16 @@
+﻿@model  Amseseni.Types.Menu.SideMenuItem
+
+<a href="@Model.ModuleHref"><i class="@Model.ModuleClass"></i><span class="title">@Model.ModuleName </span>
+    @if (Model.Items.Count > 0)
+    {
+        <i class="icon-arrow"></i>
+    }
+    <span class="@Model.ModuleSelected"></span></a>
+@if (Model.Items.Count > 0)
+{
+    for (int a = 0; a < Model.Items.Count; a++)
+    {            
+        <li>@Html.EditorFor(m => m.Items[a], "MenuItemEditor3rd")
+        </li>
+    }
+}

@@ -1,0 +1,584 @@
+﻿@using Techhill.Framework.DomainTypes.Account
+
+
+<!DOCTYPE html>
+<!--
+Theme: Keen - The Ultimate Bootstrap Admin Theme
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Dribbble: www.dribbble.com/keenthemes
+Like: www.facebook.com/keenthemes
+License: You must have a valid license purchased only from https://themes.getbootstrap.com/product/keen-the-ultimate-bootstrap-admin-theme/ in order to legally use the theme for your project.
+-->
+
+<html lang="en">
+
+<!-- begin::Head -->
+<head>
+    <base href="">
+    <meta charset="utf-8" />
+    <title>Portal Application</title>
+    <meta name="description" content="Latest updates and statistic charts">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!--begin::Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+
+    <!--end::Fonts -->
+    <!--begin::Page Vendors Styles(used by this page) -->
+    <link rel="stylesheet" href="@Url.Content("~/Newassets/plugins/custom/fullcalendar/fullcalendar.bundle.css")">
+
+
+    <!--end::Page Vendors Styles -->
+    <!--begin::Global Theme Styles(used by all pages) -->
+    <link rel="stylesheet" href="@Url.Content("~/Newassets/plugins/global/plugins.bundle.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Newassets/css/style.bundle.css")">
+
+    <!--end::Global Theme Styles -->
+    <!--begin::Layout Skins(used by all pages) -->
+
+    <link rel="stylesheet" href="@Url.Content("~/Newassets/plugins/custom/datatables/datatables.bundle.css")">
+
+    <link rel="stylesheet" href="@Url.Content("~/Newassets/js/pages/components/datatables/data-sources/html.js")">
+
+    <!--end::Layout Skins -->
+    <!--begin::Page Vendors Styles(used by this page) -->
+    <link rel="stylesheet" href="@Url.Content("~/Newassets/plugins/custom/datatables/datatables.bundle.css")">
+
+    <!--end::Page Vendors Styles -->
+    <!--begin::Global Theme Styles(used by all pages) -->
+    <link rel="stylesheet" href="@Url.Content("~/Newassets/plugins/global/plugins.bundle.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Newassets/css/style.bundle.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Newassets/css/pages/invoice/invoice-v1.css")">
+
+    <link rel="stylesheet" href="@Url.Content("~/Newassets/css/pages/pricing/pricing-v1.css")">
+
+    <link rel="stylesheet" href="@Url.Content("~/Newassets/plugins/custom/uppy/uppy.bundle.css")">
+
+    <link rel="stylesheet" href="@Url.Content("~/Newassets/css/pages/wizards/wizard-v1.css")">
+
+    <link rel="stylesheet" href="@Url.Content("~/Newassets/css/pages/wizards/wizard-v3.css")">
+
+
+</head>
+
+<!-- end::Head -->
+<!-- begin::Body -->
+<body class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header--minimize-menu kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent kt-page--loading">
+
+    <!-- begin::Page loader -->
+    <!-- end::Page Loader -->
+    <!-- begin:: Page -->
+    <!-- begin:: Header Mobile -->
+    <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
+        <div class="kt-header-mobile__logo">
+            <a href="@Url.Action("index", "dashboard")">
+                <img alt="Logo" src="~/Newassets/media/company-logos/Investment Portal2main.png" />
+            </a>
+        </div>
+        <div class="kt-header-mobile__toolbar">
+            <button class="kt-header-mobile__toolbar-toggler" id="kt_header_mobile_toggler"><span></span></button>
+            <button class="kt-header-mobile__toolbar-topbar-toggler" id="kt_header_mobile_topbar_toggler"><i class="flaticon-more"></i></button>
+        </div>
+    </div>
+
+    <!-- end:: Header Mobile -->
+    <div class="kt-grid kt-grid--hor kt-grid--root">
+        <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
+            <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
+
+                <!-- begin:: Header -->
+                <div id="kt_header" class="kt-header kt-grid__item  kt-header--fixed " data-ktheader-minimize="on" style="background-image: url(https://www.asp-ethagribizdb.com/header-bg-demo_BlackOne1.jpg)">
+                    <div class="kt-header__top">
+                        <div class="kt-container ">
+
+                            <!-- begin:: Brand -->
+                            <div class="kt-header__brand   kt-grid__item" id="kt_header_brand">
+                                <div class="kt-header__brand-logo">
+                                    <a href="@Url.Action("index", "dashboard")">
+                                        <img alt="Logo" src="https://www.asp-ethagribizdb.com/CoJ.png" class="kt-header__brand-logo-default" width="310px" />                                      
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- end:: Brand -->
+                            <!-- begin:: Topbar -->
+                            <div class="kt-header__topbar">
+                                @if (@Model.Notes != null && @Model.Notes != "")
+                                {
+                                    <!--begin: Search -->
+                                    <div class="kt-header__topbar-item kt-header__topbar-item--search">
+                                        <div class="kt-header__topbar-wrapper">
+                                            <div class="kt-quick-search kt-quick-search--inline kt-quick-search--result-compact" id="kt_quick_search_inline">
+                                                <form method="get" class="kt-quick-search__form">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend"><span class="input-group-text"><i class="flaticon2-search-1"></i></span></div>
+                                                        <input type="text" class="form-control kt-quick-search__input" placeholder="Search...">
+                                                        <div class="input-group-append"><span class="input-group-text"><i class="la la-close kt-quick-search__close"></i></span></div>
+                                                    </div>
+                                                </form>
+                                                <div data-toggle="dropdown" data-offset="0,10px"></div>
+                                                <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-lg">
+                                                    <div class="kt-quick-search__wrapper kt-scroll" data-scroll="true" data-height="325" data-mobile-height="200">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--end: Search -->
+                                    <!--begin: Quick Actions -->
+
+                                    <div class="kt-header__topbar-item dropdown">
+                                        <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="20px,10px">
+                                            <span class="kt-header__topbar-icon"><i class="flaticon-layers"></i></span>
+                                        </div>
+                                        <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
+                                            <div class="kt-head" style="background-image: url(https://www.asp-ethagribizdb.com/header-bg-demo3.jpg)">
+                                                <h3 class="kt-head__title">Quick Actions</h3>
+                                            </div>
+                                            <div class="kt-grid-nav">
+                                                <a href="@Url.Action("CreateFacilitation", "Facilitation")" class="kt-grid-nav__item">
+                                                    <div class="kt-grid-nav__item-icon"><i class="flaticon-computer"></i></div>
+                                                    <div class="kt-grid-nav__item-title">Facilitation Application</div>
+                                                    <div class="kt-grid-nav__item-desc">per branch</div>
+                                                </a>
+                                                @*<a href="@Url.Action("Index", "InvestmentIndustries")" class="kt-grid-nav__item">
+                                                    <div class="kt-grid-nav__item-icon"><i class="flaticon-business"></i></div>
+                                                    <div class="kt-grid-nav__item-title">My Documents</div>
+                                                    <div class="kt-grid-nav__item-desc">latest orders</div>
+                                                </a>
+                                                <a href="@Url.Action("Index", "InvestmentIndustries")" class="kt-grid-nav__item">
+                                                    <div class="kt-grid-nav__item-icon"><i class="flaticon-line-graph"></i></div>
+                                                    <div class="kt-grid-nav__item-title">My Opportunities</div>
+                                                    <div class="kt-grid-nav__item-desc">finance & accounting</div>
+                                                </a>
+                                                <a href="@Url.Action("Index", "InvestmentIndustries")" class="kt-grid-nav__item">
+                                                    <div class="kt-grid-nav__item-icon"><i class="flaticon-settings"></i></div>
+                                                    <div class="kt-grid-nav__item-title">My Leads</div>
+                                                    <div class="kt-grid-nav__item-desc">settings and users</div>
+                                                </a>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                <!--end: Quick Actions -->
+                                <!--begin: User -->
+                                @if (@Model.Notes != null && @Model.Notes != "")
+                                {
+                                    <div class="kt-header__topbar-item kt-header__topbar-item--user">
+                                        <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="20px,10px">
+                                            <img alt="Pic" src="~/Newassets/media/users/default.jpg" />
+                                        </div>
+                                        <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-md">
+                                            <div class="kt-user-card-v4 kt-user-card-v4--skin-light kt-notification-item-padding-x">
+                                                <div class="kt-user-card-v4__avatar">
+
+                                                    <!--use "kt-rounded" class for rounded avatar style-->
+                                                    <img class="kt-rounded-" alt="Pic" src="~/Newassets/media/users/default.jpg" />
+
+                                                    <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
+                                                    <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
+                                                </div>
+                                                <div class="kt-user-card-v4__name">
+                                                    @User.Identity.Name
+                                                    <small>Invoice @User.Identity.Name</small>
+                                                </div>
+                                                <div class="kt-user-card-v4__badge kt-hidden">
+                                                    <span class="btn btn-label-primary btn-sm btn-bold btn-font-md"></span>
+                                                </div>
+                                            </div>
+                                            <ul class="kt-nav kt-margin-b-10">
+
+                                                <li class="kt-nav__separator kt-nav__separator--fit"></li>
+                                                <li class="kt-nav__custom kt-space-between">
+                                                    <a href="@Url.Action("Logout", "Account")" target="_blank" class="btn btn-label-brand btn-upper btn-sm btn-bold">Sign Out</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                }
+                                <!--end: User -->
+                            </div>
+
+                            <!-- end:: Topbar -->
+                        </div>
+                    </div>
+                    <div class="kt-header__bottom">
+                        <div class="kt-container ">
+                            <!-- begin: Header Menu -->
+                            <button class="kt-header-menu-wrapper-close" id="kt_header_menu_mobile_close_btn"><i class="la la-close"></i></button>
+                            <div class="kt-header-menu-wrapper" id="kt_header_menu_wrapper">
+                                <div id="kt_header_menu" class="kt-header-menu kt-header-menu-mobile ">
+                                    <ul class="kt-menu__nav ">
+                                        @if (@Model.Notes != null && @Model.Notes == "Investor" || @Model.Notes == "Investor and Trade")
+                                        {
+                                            <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
+                                                <a href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text">Investment Portal</span><i class="kt-menu__hor-arrow la la-angle-down"></i><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                                                <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
+                                                    <ul class="kt-menu__subnav">
+                                                        <li class="kt-menu__item " aria-haspopup="true"><a href="@Url.Action("Index", "Facilitation")" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Facilitation Application</span></a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        }
+                                        @if (@Model.Notes != null && @Model.Notes == "Trade" || @Model.Notes == "Investor and Trade")
+                                        {
+                                            <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
+                                                <a href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text">Trade Portal</span><i class="kt-menu__hor-arrow la la-angle-down"></i><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                                                <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
+                                                    <ul class="kt-menu__subnav">
+                                                        <li class="kt-menu__item " aria-haspopup="true"><a href="@Url.Action("CreateRegistration", "Registration")" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Subscription Application</span></a></li>
+                                                        <li class="kt-menu__item " aria-haspopup="true"><a href="@Url.Action("CreateAssessment", "Registration")" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Assessment</span></a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                                @if (@Model.Notes != null && @Model.Notes != "")
+                                {
+                                    <div class="kt-header-toolbar">
+                                        <a href="@Url.Action("Index", "Dashboard")" class="btn btn-wide btn-bold btn-danger">Dashboard</a>
+                                    </div>
+                                }
+                                else
+                                {
+                            <div class="kt-header-toolbar">
+                                <a href="@Url.Action("RegisterInvestor", "Register")" class="btn btn-wide btn-bold btn-danger">Register as an Investor</a>
+                                &nbsp;
+                                <a href="@Url.Action("Register", "Register")" class="btn btn-wide btn-bold btn-danger">Register as an Exporter</a>
+                                &nbsp;
+                                <a href="@Url.Action("Login", "Account")" class="btn btn-wide btn-bold btn-danger">Login</a>
+                            </div>
+                                }
+                            </div>
+                               
+
+                            <!-- end: Header Menu -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- end:: Header -->
+                <div class="kt-container  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch">
+                    <div class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch" id="kt_body">
+                        <div class="kt-content kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+
+                            <!-- begin:: Subheader -->
+                            <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+                                <div class="kt-container ">
+                                    <div class="kt-subheader__main">
+                                        <h3 class="kt-subheader__title"></h3>
+
+                                        <div class="kt-subheader__breadcrumbs">
+                                            <a href="#" class="kt-subheader__breadcrumbs-home"></a>
+
+                                            <a href="" class="kt-subheader__breadcrumbs-link"></a>
+
+                                            <a href="" class="kt-subheader__breadcrumbs-link"></a>
+
+                                            <!-- <span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">Active link</span> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- end:: Subheader -->
+                            <!-- begin:: Content -->
+                            <div class="kt-container  kt-grid__item kt-grid__item--fluid">
+
+                                <!--begin::Dashboard 4-->
+                                <!--begin::Row-->
+
+                                @RenderBody()
+
+                                @*Langa Shabangu*@
+
+                                <!--end::Row-->
+                                <!--end::Dashboard 4-->
+                            </div>
+
+                            <!-- end:: Content -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- begin:: Footer -->
+
+                <div class="kt-footer kt-grid__item" style="background-image: url(https://www.asp-ethagribizdb.com/header-bg-demo_BlackOne1.jpg)" id="kt_footer">
+                    <div class="kt-container ">
+                        <div class="kt-footer__top">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="kt-footer__section">
+                                        <h3 class="kt-footer__title">About</h3>
+                                        <div class="kt-footer__about">
+                                            We truly hope that our love and dedication to produce an incredibly powerful
+                                            high level solution suits all your project needs.
+                                            We will continue to deliver incredible enterprise ready solutions to serve you better.
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="kt-footer__section">
+                                        <h3 class="kt-footer__title">Quick Links</h3>
+                                        <div class="row">
+                                            <div class="col">
+                                                <ul class="kt-footer__nav">
+                                                    <li><a href="#" class="kt-link">Pravicy Policy</a></li>
+                                                    <li><a href="#" class="kt-link">Terms & Conditions</a></li>
+                                                    <li><a href="#" class="kt-link">Help Center</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col">
+                                                <ul class="kt-footer__nav">
+                                                    <li><a href="#" class="kt-link">Community</a></li>
+                                                    <li><a href="#" class="kt-link">Documentation</a></li>
+                                                    <li><a href="#" class="kt-link">Support</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="kt-footer__section">
+                                        <h3 class="kt-footer__title">Get In Touch</h3>
+                                        <form action="#" class="kt-footer__subscribe">
+                                            <div class="kt-input-icon kt-input-icon--right">
+                                                <input type="text" class="form-control" style="text-decoration-color: white" placeholder="Subscribe...">
+                                                <span class="kt-input-icon__icon kt-input-icon__icon--right">
+                                                    <span><i class="la la-arrow-right"></i></span>
+                                                </span>
+                                            </div>
+                                        </form>
+                                        <div class="kt-footer__social">
+                                            <div class="kt-footer__social-label">
+                                                Social links:
+
+                                            </div>
+                                            <ul class="kt-footer__social-nav">
+                                                <li><a href="#"><i class="flaticon-facebook-logo-button"></i></a></li>
+                                                <li><a href="#"><i class="flaticon-twitter-logo-button"></i></a></li>
+                                                <li><a href="#"><i class="flaticon-instagram-logo"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-footer__bottom">
+                            <div class="kt-footer__copyright">
+                                2021&nbsp;&copy;&nbsp;<a href="http://www.RifumoHoldings.co.za" target="_blank" class="kt-link">Rifumo Holdings Inc</a>
+                            </div>
+                            <div class="kt-footer__menu">
+                                <a href="http://keenthemes.com/keen" target="_blank" class="kt-link">About</a>
+                                <a href="http://keenthemes.com/keen" target="_blank" class="kt-link">Team</a>
+                                <a href="http://keenthemes.com/keen" target="_blank" class="kt-link">Contact</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- end:: Footer -->
+            </div>
+        </div>
+    </div>
+
+    <!-- end:: Page -->
+    <!-- begin:: Topbar Offcanvas Panels -->
+
+
+    <!-- end::Offcanvas Toolbar Quick Actions -->
+    <!-- end:: Topbar Offcanvas Panels -->
+    <!-- begin::Scrolltop -->
+    <div id="kt_scrolltop" class="kt-scrolltop">
+        <i class="fa fa-arrow-up"></i>
+    </div>
+
+    <!-- end::Scrolltop -->
+    <!-- end:: Demo Toolbar -->
+    <!-- begin::Global Config(global config for global JS sciprts) -->
+    <script>
+        var KTAppOptions = {
+            "colors": {
+                "state": {
+                    "brand": "#4d5cf2",
+                    "metal": "#c4c5d6",
+                    "light": "#ffffff",
+                    "accent": "#00c5dc",
+                    "primary": "#5867dd",
+                    "success": "#34bfa3",
+                    "info": "#36a3f7",
+                    "warning": "#ffb822",
+                    "danger": "#fd3995",
+                    "focus": "#9816f4"
+                },
+                "base": {
+                    "label": [
+                        "#c5cbe3",
+                        "#a1a8c3",
+                        "#3d4465",
+                        "#3e4466"
+                    ],
+                    "shape": [
+                        "#f0f3ff",
+                        "#d9dffa",
+                        "#afb4d4",
+                        "#646c9a"
+                    ]
+                }
+            }
+        };
+    </script>
+
+
+
+    <!-- end::Global Config -->
+    <!--begin::Global Theme Bundle(used by all pages) -->
+    <script src="@Url.Content("~/Newassets/plugins/global/plugins.bundle.js")"></script>
+    <script src="@Url.Content("~/Newassets/js/scripts.bundle.js")"></script>
+
+    <!--end::Global Theme Bundle -->
+    <!--begin::Page Vendors(used by this page) -->
+    <script src="@Url.Content("~/Newassets/plugins/custom/fullcalendar/fullcalendar.bundle.js")"></script>
+
+    <!--end::Page Vendors -->
+    <!--begin::Page Scripts(used by this page) -->
+    <script src="@Url.Content("~/Newassets/js/pages/dashboard.js")"></script>
+
+    <script>
+        var KTAppOptions = {
+            "colors": {
+                "state": {
+                    "brand": "#4d5cf2",
+                    "metal": "#c4c5d6",
+                    "light": "#ffffff",
+                    "accent": "#00c5dc",
+                    "primary": "#5867dd",
+                    "success": "#34bfa3",
+                    "info": "#36a3f7",
+                    "warning": "#ffb822",
+                    "danger": "#fd3995",
+                    "focus": "#9816f4"
+                },
+                "base": {
+                    "label": [
+                        "#c5cbe3",
+                        "#a1a8c3",
+                        "#3d4465",
+                        "#3e4466"
+                    ],
+                    "shape": [
+                        "#f0f3ff",
+                        "#d9dffa",
+                        "#afb4d4",
+                        "#646c9a"
+                    ]
+                }
+            }
+        };
+    </script>
+
+    <!-- end::Global Config -->
+    <!--end::Global Theme Bundle -->
+    <!--end::Page Vendors -->
+    <!--begin::Page Scripts(used by this page) -->
+    <script src="@Url.Content("~/Newassets/js/pages/components/datatables/advanced/row-callback.js")"></script>
+
+
+    <!--end::Page Vendors -->
+    <!--begin::Page Scripts(used by this page) -->
+    <script src="@Url.Content("~/Newassets/js/pages/components/datatables/extensions/buttons.js")"></script>
+
+    <script src="@Url.Content("~/Newassets/js/pages/components/datatables/data-sources/html.js")"></script>
+
+    <script src="@Url.Content("~/Newassets/js/pages/components/keen-datatable/advanced/modal.js")"></script>
+
+    <script src="@Url.Content("~/Newassets/js/pages/components/forms/widgets/bootstrap-datepicker.js")"></script>
+
+    <script src="@Url.Content("~/Newassets/js/pages/components/forms/widgets/bootstrap-daterangepicker.js")"></script>
+
+    <script src="@Url.Content("~/Newassets/js/pages/components/base/toasts.js")"></script>
+
+    <script src="@Url.Content("~/Newassets/js/pages/custom/profile/overview-3.js")"></script>
+
+    <script src="@Url.Content("~/Newassets/js/pages/custom/profile/profile.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")"></script>
+
+    <script src="@Url.Content("~/Newassets/plugins/custom/uppy/uppy.bundle.js")"></script>
+
+    <script src="@Url.Content("~/Newassets/js/pages/components/forms/file-upload/uppy.js")"></script>
+
+    @*	    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>	*@
+
+    <!--begin::Page Vendors(used by this page) -->
+    <script src="@Url.Content("~/Newassets/plugins/custom/datatables/datatables.bundle.js")"></script>
+
+    <script src="@Url.Content("~/Newassets/js/pages/components/extended/blockui.js")"></script>
+
+    <script src="@Url.Content("~/Newassets/js/pages/components/extended/sweetalert2.js")"></script>
+
+    <!--end::Page Vendors -->
+    <!--begin::Page Scripts(used by this page) -->
+    <script src="@Url.Content("~/Newassets/js/pages/components/datatables/basic/scrollable.js")"></script>
+
+    <script src="@Url.Content("~/Newassets/js/pages/components/extended/sweetalert2.js")"></script>
+
+    <script src="@Url.Content("~/Newassets/js/pages/custom/wizards/wizard-v4.js")"></script>
+
+    <script src="@Url.Content("~/Newassets/js/pages/components/forms/widgets/bootstrap-select.js")"></script>
+
+    <script src="@Url.Content("~/Newassets/js/pages/custom/users/add.js")"></script>
+
+    <script src="@Url.Content("~/Newassets/js/pages/components/forms/widgets/select2.js")"></script>
+
+
+    <!-- begin::Global Config(global config for global JS sciprts) -->
+    @*        <script src="@Url.Content("~/Newassets/js/scripts.bundle.js)")"></script>
+
+        <script src="@Url.Content("~/Newassets/plugins/global/plugins.bundle.js")"></script>
+    *@
+
+    <!-- end::Global Config -->
+    <!--end::Page Scripts -->
+
+    <script>
+        $(document).ready(function () {
+
+            //FormPlugins.init();
+            //Dashboard.init();
+        });
+    </script>
+
+    <script>
+        jQuery(document).ready(function () {
+            //Main.init();
+            //TableData.init();
+            //Index.init();
+            //FormElements.init();
+        });
+
+        function addNotification(title, text, sticky) {
+            $.gritter.add({
+                title: title,
+                text: text,
+                sticky: sticky
+            });
+        }
+    </script>
+</body>
+
+<!-- end::Body -->
+
+</html>
+
+
+
+
+

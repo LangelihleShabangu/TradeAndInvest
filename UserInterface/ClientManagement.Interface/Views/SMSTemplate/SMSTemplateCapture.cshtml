@@ -1,0 +1,66 @@
+﻿@model ClientManagement.DomainModel.SMSTemplateModel 
+@{
+    ViewBag.Breadcramb = "BusinessType Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("CreateEditSMSTemplateData", "SMSTemplate", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{         
+    @Html.HiddenFor(model => model.SMSTemplateId)  
+
+    <link href="~/Content/StyleSheet.css" rel="stylesheet" />
+
+<div class="panel-heading">
+    <i></i>SMS Template Details
+    <div class="panel-tools">
+        <button class="btn btn-sm btn-success" type="submit">Save</button>
+    </div>
+</div>
+<div class="tab-content">
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Message : <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.Message, new { @class = "form-control", @placeholder = "Message" })
+                    </div>
+                </div>  
+                
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Cell Number : <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.CellNumber, new { @class = "form-control", @placeholder = "Cell Number" })
+                    </div>
+                </div> 
+                 
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Material Type : <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.DropDownList("SMSTemplateTypeId", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetSMSTemplateTypeDataInfo(Model.SMSTemplateTypeList), "Value", "Text", Model.SMSTemplateTypeId), new { @class = "form-control search-select" })
+                    </div>
+                </div> 
+                                            
+                <div class="col-md-12">
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <button class="btn btn-sm btn-success" type="submit">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+

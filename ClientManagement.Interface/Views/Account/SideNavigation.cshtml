@@ -1,0 +1,71 @@
+﻿@model Techhill.Framework.DomainTypes.Account.SideMenuModel
+
+<li class="has-sub">
+	<a href="javascript:;">
+		<b class="caret pull-right"></b>
+		<i class="fa fa-suitcase"></i>
+		<span>
+			Admin Information					            
+		</span> 
+	</a>
+	<ul class="sub-menu">
+		<li class="active"><a href="@Url.Action("Index", "Company")">Branch Information</a></li>
+		<li class="active"><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+		<li class="active"><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+		<li class="active"><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+		<li class="active"><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+		<li class="active"><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+		<li class="active"><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+		<li class="active"><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+		<li class="active"><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+	</ul>
+</li>
+
+@*<ul class="main-navigation-menu">
+    @for (int a = 0; a < Model.Items.Count; a++)
+    {
+        <li id="@Model.Items[a].ModuleName.Replace(" ","")">
+            @Html.EditorFor(m => m.Items[a], "MenuItemEditor") 
+        </li>
+    }
+</ul>*@
+
+@*@model Amseseni.Types.Menu.SideMenuItem
+
+<a href="@Model.ModuleHref"><i class="@Model.ModuleClass"></i><span class="title">@Model.ModuleName </span>
+    @if (Model.Items.Count > 0)
+    {
+        <i class="icon-arrow"></i>
+    }
+    <span class="@Model.ModuleSelected"></span></a>
+@if (Model.Items.Count > 0)
+{
+    <ul class="sub-menu">
+        @for (int a = 0; a < Model.Items.Count; a++)
+        {
+            <li>@Html.EditorFor(m => m.Items[a], "MenuItemEditor2nd")
+            </li>
+        }
+    </ul>
+}
+
+<li class="has-sub">
+	<a href="javascript:;">
+		<b class="caret pull-right"></b>
+		<i class="fa fa-suitcase"></i>
+		<span>
+			Admin Information					            
+		</span> 
+	</a>
+	<ul class="sub-menu">
+		<li class="active"><a href="@Url.Action("Index", "Company")">Branch Information</a></li>
+		<li class="active"><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+		<li class="active"><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+		<li class="active"><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+		<li class="active"><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+		<li class="active"><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+		<li class="active"><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+		<li class="active"><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+		<li class="active"><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+	</ul>
+</li>*@

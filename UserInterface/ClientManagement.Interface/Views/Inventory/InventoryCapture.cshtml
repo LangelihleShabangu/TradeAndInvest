@@ -1,0 +1,61 @@
+﻿@model VicocaApplication.DomainTypesModel.InventoryModel
+@{
+    ViewBag.Breadcramb = "Inventory Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/StyleSheet.css" rel="stylesheet" />
+
+@using (Html.BeginForm("CreateEditInventory", "Inventory", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.WeekNumber)
+
+    <div style="border:ridge; border-color: #d73f8c">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i></i> Inventory Capture
+                </div>
+            </div>
+        <div class="panel-body">
+            <div class="panel panel-default">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Week Number : <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.WeekNumber, new { @class = "form-control", @placeholder = "Week Number" })
+                    </div>
+                </div>
+                @*<div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Actual : <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.Actual, new { @class = "form-control", @placeholder = "Actual" })
+                    </div>
+                </div>*@
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Proposed : <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.Proposed, new { @class = "form-control", @placeholder = "Proposed" })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <button class="btn btn-sm btn-success" type="submit">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+

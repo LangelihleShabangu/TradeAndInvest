@@ -1,0 +1,61 @@
+﻿@model Techhill.Framework.DomainTypes.Account.UserRoleModel
+@{    
+    Layout = "~/Views/Shared/_Layout.cshtml";  
+}
+
+
+
+    @using (Html.BeginForm("UserRole", "Account", FormMethod.Post, new { @id = "mainForm" }))
+    {
+       <div class="kt-container  kt-grid__item kt-grid__item--fluid">
+        <div class="row">
+            <div class="col-md-12">
+
+                <!--begin::Portlet-->
+                <div class="kt-portlet">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">Available Roles </h3>
+                        </div>
+                    </div>
+                   
+                    <!--begin::Form-->
+                    <div class="kt-portlet__body">
+                        <div class="form-group">
+                            <div class="panel-body" style="height: 250px !important; overflow-y: scroll; overflow-x: hidden;">
+                            @Html.HiddenFor(m => m.UserId)                    
+                            @if (Model.UserRoles.Count == 0)
+                            {
+                                <div class="dd-empty"></div>
+                            }
+                            else
+                            {
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tbody>
+
+                                            @for (var count = 0; count < Model.UserRoles.Count; count++)
+                                            {
+                                                @Html.EditorFor(m => m.UserRoles[count], "UserRolesBoxEditor")
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                        </div>
+                            </div>
+                   
+            </div>
+        </div>
+
+        <div class="col-sm-6">            
+                <input type="submit" class="btn btn-success" value="Save" />
+                <a href="@Url.Action("EditUser", new { id = Model.UserId })" class="btn btn-primary">Back</a>       
+        </div>
+                </div>
+            </div>
+           </div>
+    }
+
+
+

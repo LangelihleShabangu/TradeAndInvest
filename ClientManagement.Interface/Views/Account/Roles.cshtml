@@ -1,0 +1,72 @@
+﻿@model List<Techhill.Framework.DomainTypes.Account.RoleModel>
+@{  
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Breadcramb = "Dashboard";
+}
+    
+@*<link rel="stylesheet" href="@Url.Content("https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css")">*@
+<script src="@Url.Content("https://code.jquery.com/jquery-3.3.1.js")"></script>
+<script src="@Url.Content("https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js")"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
+
+<div class="kt-portlet kt-portlet--mobile">
+	<div class="kt-portlet__head">
+		<div class="kt-portlet__head-label">
+			<h3 class="kt-portlet__head-title">
+				Roles List
+			</h3>
+		</div>
+	</div>
+	<div class="kt-portlet__body">
+		<!--begin: Datatable -->
+        <table id="example" class="display" style="width:100%">
+			<thead>
+				<tr>
+					<th>Action</th>
+                    <th>Description</th>
+                    <th>IsActive</th>
+				</tr>
+			</thead>
+			<tbody>  
+                @foreach (var role in Model)
+                {                                               
+				<tr>
+					<td>
+                        <a href="@Url.Action("EditRole", new { id = @role.RoleID })" class="btn btn-brand btn-sm"><i style="margin-right: 6px" class="fa fa-desktop"></i>Open</a>
+                    </td>
+                    <td>@role.Description</td>                       
+                    @if (@role.IsActive == false)
+                    {
+                        <td>
+                            <span class="kt-switch kt-switch--icon">
+							    <label>
+								    <input type="checkbox" checked="checked" name="" />
+								    <span></span>
+							    </label>
+						    </span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <span class="kt-switch kt-switch--icon">
+							    <label>
+								    <input type="checkbox" name="" />
+								    <span></span>
+							    </label>
+						    </span>
+                        </td>
+                    }
+				</tr>
+                }
+              </tbody>	
+		</table>
+		<!--end: Datatable -->
+	</div>
+</div>
+

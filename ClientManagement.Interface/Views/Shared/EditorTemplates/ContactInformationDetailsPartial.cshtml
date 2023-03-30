@@ -1,0 +1,244 @@
+﻿@model ClientManagement.DomainModel.ClientModel
+
+@{
+    var txtidnumber = "PersonalDetails_IdNumber_";
+    var txtidnumberWarning = "PersonalDetailsWarning_IdNumber_";
+    var txtBirthDate = "PersonalDetails_BirthDate_";
+    var ddlGender = "PersonalDetails_GenderId_";
+}
+
+
+
+@Html.HiddenFor(model => model.ClientId)
+@Html.HiddenFor(model => model.ContactInformationId)
+
+@Html.HiddenFor(model => model.ContactInformationDetails.ContactInformationId)
+@Html.HiddenFor(model => model.AddressDetails.AddressId)
+
+
+
+<div class="kt-grid__item kt-grid__item--fluid kt-app__content">
+    <div class="kt-portlet">
+        <div class="kt-portlet__head" style="text-align: center">
+            <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">Company / Client Capture </h3>
+            </div>
+        </div>
+
+        <div class="kt-portlet__body">
+            <div class="kt-section kt-section--first">
+                <div class="kt-section__body">
+
+                    <div class="card">
+                        <div class="card-header" id="headingThree3">
+                            <div class="row">
+                                <div class="col-xl-3">
+                                    <div class="form-group">
+                                        <label>Branch </label>
+                                        @Html.DropDownList("CompanyId", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetCompanyDataInfo(Model.CompanyList), "Value", "Text", Model.CompanyId), new { @class = "form-control selectpicker" })
+                                    </div>
+                                </div>
+
+                               @* <div class="col-xl-3">
+                                    <label>Gender </label>
+                                    <div class="form-group">
+                                        @Html.DropDownList("GenderId", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetGenderDataInfo(Model.GenderList), "Value", "Text", Model.ContactInformationDetails.GenderId), new { @class = "form-control search-select", @id = "PersonalDetails_GenderId_" })
+                                    </div>
+                                </div>*@
+
+                                @*<div class="col-xl-3">
+                                    <label>Surname </label>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(x => x.ContactInformationDetails.Surname, new { @class = "form-control", @placeholder = "Surname ", @required = "required" })
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3">
+                                    <label>Id Number </label>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(x => x.ContactInformationDetails.IdNumber, new { @id = "PersonalDetails_IdNumber_", @class = "form-control", @onblur = "OnIDNumberChange();", @onkeydown = "OnIDNumberChange();", @placeholder = "Id Number", type = "number" })
+                                    </div>
+                                </div>*@
+
+                                <div class="col-xl-3">
+                                    <label>Company / Client Name</label>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(x => x.ContactInformationDetails.FirstName, new { @class = "form-control", @placeholder = "Company Name ", @required = "required" })
+                                    </div>
+                                </div>
+
+                               @* <div class="col-xl-3">
+                                    <label>Passport Number</label>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(x => x.ContactInformationDetails.PassportNumber, new { @class = "form-control", @placeholder = "Passport Number " })
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3">
+                                    <label>KnownAs </label>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(x => x.ContactInformationDetails.KnownAs, new { @class = "form-control", @placeholder = "Known As ", @required = "required" })
+                                    </div>
+                                </div>*@
+
+@*                                <div class="col-xl-3">
+                                    <label>BirthDate </label>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(x => x.ContactInformationDetails.BirthDate, new { @class = "form-control date-picker", @placeholder = "BirthDate ", @id = "PersonalDetails_BirthDate_" })
+                                    </div>
+                                </div>*@
+
+                               @* <div class="col-xl-3">
+                                    <label>Cell Number </label>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(x => x.ContactInformationDetails.CellNumber, new { @class = "form-control", @placeholder = "Cell Number ", type = "number", @required = "required" })
+                                    </div>
+                                </div>*@
+
+                                <div class="col-xl-3">
+                                    <label>Email Address </label>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(x => x.ContactInformationDetails.EmailAddress, new { @class = "form-control", @placeholder = " Email Address ", @required = "required" })
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3">
+                                    <label>Contact Number</label>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(x => x.ContactInformationDetails.PhoneNumber, new { @class = "form-control", @placeholder = "Contact Number ", type = "number", @required = "required" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-header" id="headingThree3">
+                            <div class="form-group">
+                                <div>
+                                    <h3 class="kt-section__title kt-section__title-sm">Address Details </h3>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xl-3">
+                                    <div class="form-group">
+                                        <label>Address Line 1</label>
+                                        @Html.TextBoxFor(x => x.AddressDetails.AddressLine1, new { @id = "AddressLine1", @class = "form-control", @placeholder = "Address Line1", @required = "required" })
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3">
+                                    <div class="form-group">
+                                        <label>Address Line 2</label>
+                                        @Html.TextBoxFor(x => x.AddressDetails.AddressLine2, new { @id = "AddressLine2", @class = "form-control", @placeholder = "Address Line2", @required = "required" })
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3">
+                                    <div class="form-group">
+                                        <label>Address Line 3</label>
+                                        @Html.TextBoxFor(x => x.AddressDetails.AddressLine3, new { @id = "AddressLine2", @class = "form-control", @placeholder = "Address Line3", @required = "required" })
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3">
+                                    <div class="form-group">
+                                        <label>Address Line 4</label>
+                                        @Html.TextBoxFor(x => x.AddressDetails.AddressLine4, new { @id = "AddressLine2", @class = "form-control", @placeholder = "Address Line4", @required = "required" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+
+                        <div class="card-header" id="headingThree3">
+
+                            <div class="form-group">
+                                <div>
+                                    <h3 class="kt-section__title kt-section__title-sm">Banking Details </h3>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xl-3">
+                                    <div class="form-group">
+                                        <label>Bank</label>
+                                        @Html.DropDownList("BankId", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetBankDataInfo(Model.BankingDetailsInfo.BankList), "Value", "Text", Model.BankId), new { @class = "form-control search-select" })
+                                    </div>
+                                </div>
+                                <div class="col-xl-3">
+                                    <div class="form-group">
+                                        <label>Account Number</label>
+                                        @Html.TextBoxFor(x => x.BankingDetailsInfo.AccountNumber, new { @class = "form-control", @placeholder = "Account Number", type = "number", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="col-xl-3">
+                                    <div class="form-group">
+                                        <label>Bank Account Type</label>
+                                        @Html.DropDownList("BankAccountTypeId", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetBankAccountTypeDataInfo(Model.BankingDetailsInfo.BankAccountTypeList), "Value", "Text", Model.BankAccountTypeId), new { @class = "form-control search-select" })
+                                    </div>
+                                </div>
+                          @*  </div>
+
+                            <div class="row">*@
+                                <div class="col-xl-3">
+                                    <div class="form-group">
+                                        <label>Account Holder Name</label>
+                                        @Html.TextBoxFor(x => x.BankingDetailsInfo.AccountHolderName, new { @class = "form-control", @placeholder = "Account Holder Name", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="col-xl-3">
+                                    <div class="form-group">
+                                        <label>Bank Branch</label>
+                                        @Html.TextBoxFor(x => x.BankingDetailsInfo.BankBranch, new { @class = "form-control", @placeholder = "Bank Branch", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="col-xl-3">
+                                    <div class="form-group">
+                                        <label>Bank Code</label>
+                                        @Html.TextBoxFor(x => x.BankingDetailsInfo.BankCode, new { @class = "form-control", @placeholder = "Bank Code", required = "required" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-outline-brand kt-btn kt-btn--pill" id="kt_sweetalert_demo_11">Submit</button>
+                        @*<button type="submit" class="btn btn-default btn-bold btn-font-sm btn-upper" id="kt_toast_toggle_1"></button>*@
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <script type="text/javascript">
+
+            function OnIDNumberChange() {
+                var idNumber = $("#@txtidnumber").val();
+
+                if (idNumber.length == 13) {
+                    var tempDate = new Date(idNumber.substring(0, 2), idNumber.substring(2, 4) - 1, idNumber.substring(4, 6));
+                    var curr_date = tempDate.getDate();
+                    var curr_month = tempDate.getMonth() + 1;
+                    var curr_year = tempDate.getFullYear();
+                    newtemp = (curr_year + "-" + curr_month + "-" + curr_date);
+                    $("#@txtBirthDate").val("");
+                    $("#@txtBirthDate").val(newtemp);
+
+                    var genderCode = idNumber.substring(6, 10);
+                    var gender = parseInt(genderCode) < 5000 ? $("#@ddlGender").val(2) : $("#@ddlGender").val(3);
+                }
+
+                if (idNumber.length != 13)
+                    $("#@txtidnumberWarning").text('Warning! ID is ' + idNumber.length + ' digits long!');
+                else
+                    $("#@txtidnumberWarning").text('');
+            }
+        </script>

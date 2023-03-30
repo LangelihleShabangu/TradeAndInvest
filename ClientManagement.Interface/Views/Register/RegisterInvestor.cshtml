@@ -1,0 +1,251 @@
+﻿@model ClientManagement.Interface.Models.CompanyProfileModel
+@{
+    Layout = "~/Views/Shared/_LayoutOne.cshtml";
+}
+
+<script src="@Url.Content("https://code.jquery.com/jquery-3.3.1.js")"></script>
+<script src="@Url.Content("https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js")"></script>
+
+<div class="kt-grid__item kt-grid__item--fluid kt-app__content">
+    <div class="kt-portlet">
+        <div class="kt-portlet__head" style="text-align: center">
+            <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">Investor Registration Information</h3>
+            </div>
+        </div>
+
+        <div class="kt-portlet__body">
+            <div class="kt-section kt-section--first">
+                <div class="kt-section__body">
+                    <div class="form-group row">
+                        <div class="col-lg-9 col-xl-4">
+                            <label>Company Name</label>
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.CompanyName, new { @class = "form-control", @placeholder = "CompanyName", required = "required", @id = "CompanyName" })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-9 col-xl-4">
+                            <label>Company Contact Phone No</label>
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.CompanyContactPhone, new { @class = "form-control", @placeholder = "Company Contact Phone No", required = "required", @id = "CompanyContactPhone", @type = "tel", @maxlength = "10" })
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xl-4">
+                            <label>Company Contact Person </label>
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.CompanyContactPerson, new { @class = "form-control", @placeholder = "CompanyContactPerson", required = "required", @id = "CompanyContactPerson" })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-9 col-xl-4">
+                            <label>Email Address</label>
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.EmailAddress, new { @class = "form-control", @placeholder = "EmailAddress", required = "required", @id = "EmailAddress", type = "email" })
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xl-4">
+                            <label>Password</label>
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.Password, new { @class = "form-control", @placeholder = "Password", required = "required", @id = "Password", @type = "password" })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-9 col-xl-4">
+                            <label>Confirm Password</label>
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.ConfirmPassword, new { @class = "form-control", @placeholder = "ConfirmPassword", required = "required", @id = "ConfirmPassword", @type = "password" })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-9 col-xl-4">
+                            <label>Address Line 1</label>
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.AddressLine1, new { @class = "form-control", @placeholder = "AddressLine1", required = "required", @id = "AddressLine1" })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-9 col-xl-4">
+                            <label>Address Line 2</label>
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.AddressLine2, new { @class = "form-control", @placeholder = "AddressLine2", required = "required", @id = "AddressLine2" })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-9 col-xl-4">
+                            <label>Address Line 3</label>
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.AddressLine3, new { @class = "form-control", @placeholder = "AddressLine3", required = "required", @id = "AddressLine3" })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-9 col-xl-4">
+                            <label>City</label>
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.AddressLineCity, new { @class = "form-control", @placeholder = "AddressLineCity", required = "required", @id = "AddressLineCity" })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-9 col-xl-4">
+                            <label>State or Province</label>
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.AddressLineState_Province, new { @class = "form-control", @placeholder = "AddressLineState_Province", required = "required", @id = "AddressLineState_Province" })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-9 col-xl-4">
+                            <label>Postal Code</label>
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.AddressLinePostalCode, new { @class = "form-control", @placeholder = "AddressLinePostalCode", required = "required", @id = "AddressLinePostalCode" })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-9 col-xl-12">
+                            <label>Country</label>
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.AddressLineCountry, new { @class = "form-control", @placeholder = "AddressLineCountry", required = "required", @id = "AddressLineCountry" })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-9 col-xl-12">
+                            @*<label>Choose the business Category </label>
+                                <div class="form-group">
+                                    @Html.DropDownList("Category", new SelectList(ClientManagement.BusinessLogic.GlobalAmin.GetCategoryTypeData(), "Value", "Text", Model.Category), new { @class = "form-control search-select", @id = "Category" })
+                                </div>*@
+
+                            <div class="form-group">
+                                <label>Choose the business Category</label>
+                                <div class="kt-radio-list">
+                                    <label class="kt-radio">
+                                        @Html.RadioButton("Category", "Investor", new { @checked = "checked" }) Investor
+                                        <span></span>
+                                    </label>
+                                    <label class="kt-radio">
+                                        @Html.RadioButton("Category", "Trade", new { @disabled = "disabled" })  Trade
+                                        <span></span>
+                                    </label>
+                                    <label class="kt-radio kt-radio--disabled">
+                                        @Html.RadioButton("Category", "Investor and Trade", new { @disabled = "disabled" })  Investor and Trade
+
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-9 col-xl-6">
+                            <div class="form-group">
+                                @Html.ValidationSummary("", new { @class = "text-danger" })
+                                <button type="button" class="btn btn-outline-brand kt-btn kt-btn--pill" onclick="frmchangeSubmit()">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+        function frmchangeSubmit() {
+            if ($("#CompanyName").val() == "") {
+                swal.fire("CompanyName", "Please enter the CompanyName", "error");
+                return;
+            }
+
+            if ($("#Company Contact Phone").val() == "") {
+                swal.fire("CompanyContactPhone", "Please enter the Company Contact Phone", "error");
+                return;
+            }
+            if ($("#CompanyContactPerson").val() == "") {
+                swal.fire("Company Contact Person", "Please enter the Company Contact Person", "error");
+                return;
+            }
+
+            if ($("#Password").val() == "") {
+                swal.fire("Password", "Please enter Confirm Password", "error");
+                return;
+            }
+
+            if ($("#ConfirmPassword").val() == "") {
+                swal.fire("Confirm Password", "Please enter Confirm Password", "error");
+                return;
+            }
+
+            if ($("#ConfirmPassword").val() != $("#Password").val()) {
+                swal.fire("Password", "Password does not match", "error");
+                return;
+            }
+
+            if ($("#EmailAddress").val() == "") {
+                swal.fire("EmailAddress", "Please enter the Email Address", "error");
+                return;
+            }
+
+            if ($("#AddressLine1").val() == "") {
+                swal.fire("Address Line 1", "Please enter the AddressLine1", "error");
+                return;
+            }
+            if ($("#AddressLine2").val() == "") {
+                swal.fire("Address Line 2", "Please enter the AddressLine2", "error");
+                return;
+            }
+            if ($("#AddressLine3").val() == "") {
+                swal.fire("Address Line 3", "Please enter the AddressLine3", "error");
+                return;
+            }
+
+            if ($("#AddressLineCity").val() == "") {
+                swal.fire("City", "Please enter the City", "error");
+                return;
+            }
+
+            if ($("#AddressLineState_Province").val() == "") {
+                swal.fire("State or Province", "Please enter the Province or State", "error");
+                return;
+            }
+            if ($("#AddressLinePostalCode").val() == "") {
+                swal.fire("PostalCode", "Please enter the PostalCode", "error");
+                return;
+            }
+            if ($("#AddressLineCountry").val() == "") {
+                swal.fire("Country", "Please enter the Country", "error");
+                return;
+            }
+
+        $.ajax({
+            cache: false,
+            type: "GET",
+            data: {
+                CompanyName: $("#CompanyName").val(),
+                CountryRegion: $("#CountryRegion").val(),
+                NumberofEmployees: $("#NumberofEmployees").val(),
+                CompanyContactPhone: $("#CompanyContactPhone").val(),
+                CompanyContactPerson: $("#CompanyContactPerson").val(),
+                Sector: $("#Sector").val(),
+                MainCompany: $("#MainCompany").val(),
+                SummaryProject: $("#SummaryProject").val(),
+                RequestInformation: $("#RequestInformation").val(),
+                Password: $("#Password").val(),
+                EmailAddress: $("#EmailAddress").val(),
+                Category: $("input[name='Category']:checked").val(),
+                AddressLine1: $("#AddressLine1").val(),
+                AddressLine2: $("#AddressLine2").val(),
+                AddressLine3: $("#AddressLine3").val(),
+                AddressLineCity: $("#AddressLineCity").val(),
+                AddressLineState_Province: $("#AddressLineState_Province").val(),
+                AddressLinePostalCode: $("#AddressLinePostalCode").val(),
+                AddressLineCountry: $("#AddressLineCountry").val()
+            },
+            url: '@Url.Action("EditUser1", "Register")',
+            success: function (data) {
+				window.location.href = '/Account/Login';
+            }
+            //else
+            //{
+            //    swal.fire("Registration", "Registration failed please contact system administrator ", "error");
+            //}
+        });
+    }
+</script>
+

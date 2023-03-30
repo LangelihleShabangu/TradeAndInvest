@@ -1,0 +1,49 @@
+﻿@model ClientManagement.DomainModel.TransporterModel
+
+<script>
+    jQuery(document).ready(function () {
+        Main.init();
+        FormElements.init();
+    });
+</script>
+
+<div class="panel-heading">
+    Logistics Details
+</div>
+<div class="tab-content">
+    <div class="panel-body">
+        <table class="table table-striped table-bordered table-hover table-full-width">
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>FirstNames</th>
+                    <th>Cell Number</th>
+                    <th>Address</th>
+                    <th>Orders Received</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.TransporterList)
+                {
+                    <tr>
+                        <td>
+                            @using (Html.BeginForm("AssignLogistics", "Order", new { OrderId = Model.OrderId, TransporterId = item.TransporterId }))
+                            {
+                                @Html.HiddenFor(model => model.OrderId)
+
+                                <input type="submit" name="submitbtn" class="btn btn-xs btn-green tooltips" data-placement="top" data-original-title="Assign" value="Assign" />
+                            }
+                        </td>
+                        <td>@item.Surname @item.FirstName </td>
+                        <td>@item.CellNumber</td>
+                        <td>@item.Address</td>
+                        <td>@item.NumberofOrders</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

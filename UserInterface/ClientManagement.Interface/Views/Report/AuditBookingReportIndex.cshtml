@@ -1,0 +1,103 @@
+﻿@model ClientManagement.DomainModel.PaymentInfoReportModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    MenuSelected('Booking');
+</script>
+
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        Payments Audit Report                                       
+    </div>
+    <div class="tab-content">
+
+        <div class="panel-body">
+            @using (Html.BeginForm("GetBookingAuditReportDetails", "Report"))
+            {
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Start Date :
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.StartDate, new { @class = "form-control date-picker", @placeholder = "Start Date " })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">
+                            End Date :
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.EndDate, new { @class = "form-control date-picker", @placeholder = "End Date " })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">
+                            *
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" name="submitbtn" class="btn btn-sm btn-success" data-placement="top" data-original-title="Generate Report" value="View Report" />
+                    </div>
+                </div>
+            }
+            <div class="col-md-12">
+                <div class="panel panel-default" style="border: ridge; border-color: black">
+
+                    <div class="panel-heading">
+                        <i></i><em><strong>Bookings</strong> </em>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <table class="table table-striped table-bordered table-hover table-full-width" id="sample_11">
+                            <thead>
+                                <tr>
+                                    <th>Action Performed Date</th>
+                                    <th>Canceled By</th>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
+                                    <th>Payment Date</th>
+                                    <th>Client</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.PaymentPurchaseInfoReportList)
+                                {
+                                    <tr>
+                                        <td>@item.Action_Performed_Date</td>
+                                        <td>@item.Canceled_By</td>
+                                        <td>@item.StartTime</td>
+                                        <td>@item.EndTime</td>
+                                        <td>@item.PaymentDate.ToString("dd MMMM yyyy")</td>
+                                        <td>@item.Client</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+

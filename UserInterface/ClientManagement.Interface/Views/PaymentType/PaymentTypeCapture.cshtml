@@ -1,0 +1,43 @@
+﻿@model ClientManagement.DomainModel.PaymentTypeModel 
+@{
+    ViewBag.Breadcramb = "PaymentType Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("CreateEditPaymentTypeData", "PaymentType", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{         
+    @Html.HiddenFor(model => model.PaymentTypeId)  
+    <link href="~/Content/StyleSheet.css" rel="stylesheet" />
+    <div class="panel-heading">
+        <i></i>Payment Type Capture
+    <div class="panel-tools">
+        <button class="btn btn-sm btn-success" type="submit">Save</button>
+    </div>
+    </div>
+    
+    <div class="tab-content">
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Name : <span class="symbol required"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = "Name" })
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <button class="btn btn-sm btn-success" type="submit">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>  
+}
+
+
+
